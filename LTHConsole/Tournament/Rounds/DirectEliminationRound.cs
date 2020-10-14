@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using LTHConsole.Tournament.Brackets;
 
 namespace LTHConsole.Tournament.Rounds
@@ -99,12 +100,41 @@ namespace LTHConsole.Tournament.Rounds
                 }
             }
             
+            // Create the bracket
             Bracket = new Direct(participants);
+            Bracket.Type = Objectives.FirstTo;
+            Bracket.ScoreObjective = 3;
         }
         
         public override void Print()
         {
-            
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            switch (Bracket.State)
+            {
+                case BracketState.Final:
+                    Console.WriteLine("FINAL");
+                    break;
+                case BracketState.Semi:
+                    Console.WriteLine("SEMI FINAL");
+                    break;
+                case BracketState.Quarter:
+                    Console.WriteLine("QUARTER FINAL");
+                    break;
+                case BracketState.Eight:
+                    Console.WriteLine("EIGHT FINAL");
+                    break;
+                case BracketState.Sixteen:
+                    Console.WriteLine("Round of 16");
+                    break;
+                case BracketState.ThirtyTwo:
+                    Console.WriteLine("Round of 32");
+                    break;
+                case BracketState.Plus:
+                    Console.WriteLine("More than 32 matches");
+                    break;
+            }
+            Console.ResetColor();
+            base.Print();
         }
     }
 }

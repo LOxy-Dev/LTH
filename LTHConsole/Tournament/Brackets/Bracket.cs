@@ -5,7 +5,8 @@ namespace LTHConsole.Tournament.Brackets
 {
     public class Bracket
     {
-        public bool IsFinished { get; protected set; }
+        public bool IsFinished { get; private set; }
+        public BracketState State { get; protected set; }
 
         protected int ActualMatchId = 0;
         public int ScoreObjective { get; set; }
@@ -31,7 +32,8 @@ namespace LTHConsole.Tournament.Brackets
         // This method calculate the who won the match and switch to the next one
         public virtual void CheckMatch()
         {
-            
+            ActualMatchId++;
+            if (ActualMatchId == Matches.Count) IsFinished = true;
         }
 
         // Print the state of the bracket

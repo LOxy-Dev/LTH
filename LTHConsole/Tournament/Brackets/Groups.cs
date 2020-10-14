@@ -45,9 +45,9 @@ namespace LTHConsole.Tournament.Brackets
             {
                 Draw();
             }
-            ActualMatchId++;
+            // Ordering players by score
             Players = Players.OrderByDescending(i => i.WLDRatio).ThenByDescending(j => j.Score).ToList();
-            if (ActualMatchId == Matches.Count) IsFinished = true;
+            base.CheckMatch();
         }
 
         private void Win(Player winner, Player looser)
