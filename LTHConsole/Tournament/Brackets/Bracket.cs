@@ -23,7 +23,7 @@ namespace LTHConsole.Tournament.Brackets
             IsFinished = false;
         }
 
-        public virtual Match GetActualMatch()
+        public Match GetActualMatch()
         {
             return Matches.ElementAt(ActualMatchId);
         }
