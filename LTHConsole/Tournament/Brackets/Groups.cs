@@ -121,7 +121,7 @@ namespace LTHConsole.Tournament.Brackets
                 Console.Write(me.Name.CenterString(longestName + 2));
                 Console.Write(" |");
                 // Write Position
-                Console.Write(Players.IndexOf(me).ToString().CenterString("  Position  ".Length));
+                Console.Write((Players.IndexOf(me) + 1).ToString().CenterString("  Position  ".Length));
                 Console.Write("|");
                 // Write WLD
                 var wld = new StringBuilder();
