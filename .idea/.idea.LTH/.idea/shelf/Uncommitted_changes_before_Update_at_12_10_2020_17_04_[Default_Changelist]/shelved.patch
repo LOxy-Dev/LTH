@@ -1,0 +1,233 @@
+Index: LTHConsole/Player.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>namespace LTHConsole\r\n{\r\n    public class Player\r\n    {\r\n        private string _name;\r\n\r\n        public Player(string name)\r\n        {\r\n            _name = name;\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LTHConsole/Player.cs	(revision cfba3da52be2635e645ca2a57fd65257adecac4e)
++++ LTHConsole/Player.cs	(date 1602323759636)
+@@ -2,11 +2,11 @@
+ {
+     public class Player
+     {
+-        private string _name;
++        public string Name { get; }
+ 
+         public Player(string name)
+         {
+-            _name = name;
++            Name = name;
+         }
+     }
+ }
+\ No newline at end of file
+Index: LTHConsole/Tournament.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\r\nusing System.Diagnostics;\r\n\r\nnamespace LTHConsole\r\n{\r\n    public class Tournament\r\n    {\r\n        private string _name;\r\n        private int _nbPlayer;\r\n        private Player[] _players;\r\n        private TournamentType _type;\r\n        private int _nbRounds;\r\n        private TournamentType[] _multiRounds;\r\n\r\n        public Tournament(string name, int nbPlayer, Player[] players, TournamentType type)\r\n        {\r\n            _name = name;\r\n            _nbPlayer = nbPlayer;\r\n            _players = players;\r\n            _type = type;\r\n            \r\n            if (_type == TournamentType.MultiRounds) InitMultiRounds();\r\n        }\r\n\r\n        private void InitMultiRounds()\r\n        {\r\n            bool valid = false;\r\n            while (!valid)\r\n            {\r\n                Console.ForegroundColor = ConsoleColor.DarkMagenta;\r\n                Console.WriteLine(\"Enter the number of rounds...\");\r\n                Console.ResetColor();\r\n                try\r\n                {\r\n                    int input = Int32.Parse(Console.ReadLine()!);\r\n                    if (input > 0)\r\n                    {\r\n                        _nbRounds = input;\r\n                        valid = true;\r\n                    }\r\n                    else\r\n                    {\r\n                        Console.ForegroundColor = ConsoleColor.DarkRed;\r\n                        Console.WriteLine(\"ERROR : Your answer is not a positive integer.\");\r\n                        Console.ResetColor();\r\n                    }\r\n                }\r\n                catch (FormatException)\r\n                {\r\n                    Console.ForegroundColor = ConsoleColor.DarkRed;\r\n                    Console.WriteLine(\"ERROR : Your answer is not an integer.\");\r\n                    Console.ResetColor();\r\n                    throw;\r\n                }\r\n            }\r\n            \r\n            _multiRounds = new TournamentType[_nbRounds];\r\n            for (int i = 0; i < _nbRounds; i++)\r\n            {\r\n                while (true)\r\n                {\r\n                    try\r\n                    {\r\n                        Console.ForegroundColor = ConsoleColor.DarkMagenta;\r\n                        Console.WriteLine(\"Enter Type of round \" + (i + 1) + \":\\n 1) Group format\\n 2) Direct elimination format\");\r\n                        Console.ResetColor();\r\n                        int input = Int32.Parse(Console.ReadLine()!);\r\n                        if (input < 3 && input > 0)\r\n                        {\r\n                            switch (input)\r\n                            {\r\n                                case 1:\r\n                                    _multiRounds[i] = TournamentType.Championship;\r\n                                    break;\r\n                                case 2:\r\n                                    _multiRounds[i] = TournamentType.DirectElimination;\r\n                                    break;\r\n                            }\r\n                            break;\r\n                        }\r\n                        else\r\n                        {\r\n                            Console.ForegroundColor = ConsoleColor.DarkRed;\r\n                            Console.WriteLine(\"ERROR : Your answer must be 1 or 2.\");\r\n                            Console.ResetColor();\r\n                        }\r\n                    }\r\n                    catch (FormatException)\r\n                    {\r\n                        Console.ForegroundColor = ConsoleColor.DarkRed;\r\n                        Console.WriteLine(\"ERROR : Your answer is not an integer\");\r\n                        Console.ResetColor();\r\n                        throw;\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        \r\n        public void Print()\r\n        {\r\n            \r\n        }\r\n    }\r\n\r\n    public enum TournamentType\r\n    {\r\n        Null, Championship, DirectElimination, MultiRounds\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LTHConsole/Tournament.cs	(revision cfba3da52be2635e645ca2a57fd65257adecac4e)
++++ LTHConsole/Tournament.cs	(date 1602323759583)
+@@ -98,7 +98,35 @@
+         
+         public void Print()
+         {
+-            
++            Console.ForegroundColor = ConsoleColor.Green;
++            // Write the name of the tournament
++            Console.WriteLine(_name + "\n");
++
++            Match nextMatch;
++            switch (_type)
++            {
++                case TournamentType.Championship:
++                    nextMatch = NextMatch();
++                    Console.WriteLine("Next match is : " + nextMatch.Player1.Name + " VS " + nextMatch.Player2.Name);
++                    break;
++                
++                case TournamentType.DirectElimination:
++                    nextMatch = NextMatch();
++                    Console.WriteLine("Next match is : " + nextMatch.Player1.Name + " VS " + nextMatch.Player2.Name);
++                    break;
++                
++                case TournamentType.MultiRounds:
++                    break;
++            }
++            {
++                
++            }
++            Console.ResetColor();
++        }
++
++        private Match NextMatch()
++        {
++            return new Match(_players[0], _players[1]);
+         }
+     }
+ 
+Index: LTHConsole/Match.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LTHConsole/Match.cs	(date 1602323759552)
++++ LTHConsole/Match.cs	(date 1602323759552)
+@@ -0,0 +1,15 @@
++namespace LTHConsole
++{
++    public class Match
++    {
++        public Player Player1 { get; }
++        public Player Player2 { get; }
++
++
++        public Match(Player player1, Player player2)
++        {
++            Player1 = player1;
++            Player2 = player2;
++        }
++    }
++}
+\ No newline at end of file
+Index: .idea/.idea.LTH/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoGeneratedRunConfigurationManager\">\r\n    <projectFile>LTHConsole/LTHConsole.csproj</projectFile>\r\n    <projectFile>LTHWindow/LTHWindow.csproj</projectFile>\r\n  </component>\r\n  <component name=\"BranchesTreeState\">\r\n    <expand>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"GROUP_NODE:feature\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n    </expand>\r\n    <select>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"GROUP_NODE:feature\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"BRANCH:feature/main\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n    </select>\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"63d6783f-e747-4515-a1f6-608e3f6df5de\" name=\"Default Changelist\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTH/.idea/codeStyles/codeStyleConfig.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTH/.idea/contentModel.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTH/.idea/encodings.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTH/.idea/indexLayout.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTH/.idea/modules.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTH/.idea/projectSettingsUpdater.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTH/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTH/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/codeStyles/codeStyleConfig.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/contentModel.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/encodings.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/indexLayout.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/modules.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/projectSettingsUpdater.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/LTHConsole/Player.cs\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/LTHConsole/Tournament.cs\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/LTHWindow/App.xaml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/LTHWindow/App.xaml.cs\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/LTHWindow/AssemblyInfo.cs\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/LTHWindow/LTHWindow.csproj\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/LTHWindow/MainWindow.xaml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/LTHWindow/MainWindow.xaml.cs\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/LTHConsole.sln\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/LTH.sln\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/LTHConsole/Program.cs\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/LTHConsole/Program.cs\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"mock://C:/Users/HectorFIORESE/RiderProjects/LTH/LTHConsole/Program.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n    <setting file=\"mock://C:/Users/HectorFIORESE/RiderProjects/LTH/LTHConsole/Program.cs\" root0=\"SKIP_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"IdeDocumentHistory\">\r\n    <option name=\"CHANGED_PATHS\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/LTHConsole/Tournament.cs\" />\r\n        <option value=\"$PROJECT_DIR$/LTHConsole/Program.cs\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1igETZMsJO0hknywb7iTnDpP1Sb\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"preferences.lookFeel\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\".NET Project.LTHConsole\">\r\n    <configuration name=\"LTHConsole\" type=\"DotNetProject\" factoryName=\".NET Project\">\r\n      <option name=\"EXE_PATH\" value=\"\" />\r\n      <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"PASS_PARENT_ENVS\" value=\"1\" />\r\n      <option name=\"USE_EXTERNAL_CONSOLE\" value=\"0\" />\r\n      <option name=\"USE_MONO\" value=\"0\" />\r\n      <option name=\"RUNTIME_ARGUMENTS\" value=\"\" />\r\n      <option name=\"PROJECT_PATH\" value=\"$PROJECT_DIR$/LTHConsole/LTHConsole.csproj\" />\r\n      <option name=\"PROJECT_EXE_PATH_TRACKING\" value=\"1\" />\r\n      <option name=\"PROJECT_ARGUMENTS_TRACKING\" value=\"1\" />\r\n      <option name=\"PROJECT_WORKING_DIRECTORY_TRACKING\" value=\"1\" />\r\n      <option name=\"PROJECT_KIND\" value=\"DotNetCore\" />\r\n      <option name=\"PROJECT_TFM\" value=\"\" />\r\n      <method v=\"2\">\r\n        <option name=\"Build\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"LTHWindow\" type=\"DotNetProject\" factoryName=\".NET Project\">\r\n      <option name=\"EXE_PATH\" value=\"\" />\r\n      <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"PASS_PARENT_ENVS\" value=\"1\" />\r\n      <option name=\"USE_EXTERNAL_CONSOLE\" value=\"0\" />\r\n      <option name=\"USE_MONO\" value=\"0\" />\r\n      <option name=\"RUNTIME_ARGUMENTS\" value=\"\" />\r\n      <option name=\"PROJECT_PATH\" value=\"$PROJECT_DIR$/LTHWindow/LTHWindow.csproj\" />\r\n      <option name=\"PROJECT_EXE_PATH_TRACKING\" value=\"1\" />\r\n      <option name=\"PROJECT_ARGUMENTS_TRACKING\" value=\"1\" />\r\n      <option name=\"PROJECT_WORKING_DIRECTORY_TRACKING\" value=\"1\" />\r\n      <option name=\"PROJECT_KIND\" value=\"DotNetCore\" />\r\n      <option name=\"PROJECT_TFM\" value=\"\" />\r\n      <method v=\"2\">\r\n        <option name=\"Build\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"63d6783f-e747-4515-a1f6-608e3f6df5de\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1602320855041</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1602320855041</updated>\r\n      <workItem from=\"1602320933927\" duration=\"1669000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"UnityProjectConfiguration\" hasMinimizedUI=\"null\" />\r\n  <component name=\"UnityUnitTestConfiguration\" currentTestLauncher=\"NUnit\" />\r\n  <component name=\"Vcs.Log.History.Properties\">\r\n    <option name=\"COLUMN_ORDER\">\r\n      <list>\r\n        <option value=\"0\" />\r\n        <option value=\"2\" />\r\n        <option value=\"3\" />\r\n        <option value=\"1\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"feature/main\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"CLEAR_INITIAL_COMMIT_MESSAGE\" value=\"true\" />\r\n  </component>\r\n  <component name=\"WindowStateProjectService\">\r\n    <state x=\"93\" y=\"93\" width=\"1095\" height=\"495\" key=\"DiffContextDialog\" timestamp=\"1602322210712\">\r\n      <screen x=\"0\" y=\"0\" width=\"1280\" height=\"680\" />\r\n    </state>\r\n    <state x=\"93\" y=\"93\" width=\"1095\" height=\"495\" key=\"DiffContextDialog/0.0.1280.680@0.0.1280.680\" timestamp=\"1602322210712\" />\r\n    <state width=\"1237\" height=\"163\" key=\"GridCell.Tab.0.bottom\" timestamp=\"1602321864272\">\r\n      <screen x=\"0\" y=\"0\" width=\"1280\" height=\"680\" />\r\n    </state>\r\n    <state width=\"1237\" height=\"163\" key=\"GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680\" timestamp=\"1602321864272\" />\r\n    <state width=\"1237\" height=\"163\" key=\"GridCell.Tab.0.center\" timestamp=\"1602321864272\">\r\n      <screen x=\"0\" y=\"0\" width=\"1280\" height=\"680\" />\r\n    </state>\r\n    <state width=\"1237\" height=\"163\" key=\"GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680\" timestamp=\"1602321864272\" />\r\n    <state width=\"1237\" height=\"163\" key=\"GridCell.Tab.0.left\" timestamp=\"1602321864272\">\r\n      <screen x=\"0\" y=\"0\" width=\"1280\" height=\"680\" />\r\n    </state>\r\n    <state width=\"1237\" height=\"163\" key=\"GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680\" timestamp=\"1602321864272\" />\r\n    <state width=\"1237\" height=\"163\" key=\"GridCell.Tab.0.right\" timestamp=\"1602321864272\">\r\n      <screen x=\"0\" y=\"0\" width=\"1280\" height=\"680\" />\r\n    </state>\r\n    <state width=\"1237\" height=\"163\" key=\"GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680\" timestamp=\"1602321864272\" />\r\n    <state x=\"142\" y=\"0\" key=\"SettingsEditor\" timestamp=\"1602321822819\">\r\n      <screen x=\"0\" y=\"0\" width=\"1280\" height=\"680\" />\r\n    </state>\r\n    <state x=\"142\" y=\"0\" key=\"SettingsEditor/0.0.1280.680@0.0.1280.680\" timestamp=\"1602321822819\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.LTH/.idea/workspace.xml	(revision cfba3da52be2635e645ca2a57fd65257adecac4e)
++++ .idea/.idea.LTH/.idea/workspace.xml	(date 1602515043592)
+@@ -26,33 +26,12 @@
+     </select>
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="63d6783f-e747-4515-a1f6-608e3f6df5de" name="Default Changelist" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/contentModel.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/encodings.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/indexLayout.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/modules.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/projectSettingsUpdater.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/vcs.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/workspace.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/contentModel.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/encodings.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/indexLayout.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/modules.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/projectSettingsUpdater.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/vcs.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/.idea.LTHConsole/.idea/workspace.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/LTHConsole/Player.cs" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/LTHConsole/Tournament.cs" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/LTHWindow/App.xaml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/LTHWindow/App.xaml.cs" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/LTHWindow/AssemblyInfo.cs" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/LTHWindow/LTHWindow.csproj" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/LTHWindow/MainWindow.xaml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/LTHWindow/MainWindow.xaml.cs" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/LTHConsole.sln" beforeDir="false" afterPath="$PROJECT_DIR$/LTH.sln" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/LTHConsole/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/LTHConsole/Program.cs" afterDir="false" />
++    <list default="true" id="63d6783f-e747-4515-a1f6-608e3f6df5de" name="Default Changelist" comment="Adding the basic tournament generation (Console)">
++      <change afterPath="$PROJECT_DIR$/LTHConsole/Match.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/contentModel.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LTH/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/LTHConsole/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/LTHConsole/Player.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/LTHConsole/Tournament.cs" beforeDir="false" afterPath="$PROJECT_DIR$/LTHConsole/Tournament.cs" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -69,8 +48,10 @@
+   <component name="IdeDocumentHistory">
+     <option name="CHANGED_PATHS">
+       <list>
+-        <option value="$PROJECT_DIR$/LTHConsole/Tournament.cs" />
+         <option value="$PROJECT_DIR$/LTHConsole/Program.cs" />
++        <option value="$PROJECT_DIR$/LTHConsole/Match.cs" />
++        <option value="$PROJECT_DIR$/LTHConsole/Player.cs" />
++        <option value="$PROJECT_DIR$/LTHConsole/Tournament.cs" />
+       </list>
+     </option>
+   </component>
+@@ -132,8 +113,16 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1602320855041</updated>
+-      <workItem from="1602320933927" duration="1669000" />
++      <workItem from="1602320933927" duration="2857000" />
+     </task>
++    <task id="LOCAL-00001" summary="Adding the basic tournament generation (Console)">
++      <created>1602322931728</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1602322931728</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -176,28 +165,34 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
++    <MESSAGE value="Adding the basic tournament generation (Console)" />
++    <option name="LAST_COMMIT_MESSAGE" value="Adding the basic tournament generation (Console)" />
+   </component>
+   <component name="WindowStateProjectService">
+     <state x="93" y="93" width="1095" height="495" key="DiffContextDialog" timestamp="1602322210712">
+       <screen x="0" y="0" width="1280" height="680" />
+     </state>
+     <state x="93" y="93" width="1095" height="495" key="DiffContextDialog/0.0.1280.680@0.0.1280.680" timestamp="1602322210712" />
+-    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1602321864272">
++    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1602323819225">
+       <screen x="0" y="0" width="1280" height="680" />
+     </state>
+-    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1602321864272" />
+-    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1602321864272">
++    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1602323819225" />
++    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1602323819225">
+       <screen x="0" y="0" width="1280" height="680" />
+     </state>
+-    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1602321864272" />
+-    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1602321864272">
++    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1602323819225" />
++    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1602323819225">
+       <screen x="0" y="0" width="1280" height="680" />
+     </state>
+-    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1602321864272" />
+-    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1602321864272">
++    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1602323819225" />
++    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1602323819225">
+       <screen x="0" y="0" width="1280" height="680" />
+     </state>
+-    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1602321864272" />
++    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1602323819225" />
++    <state x="445" y="14" key="RiderGenerateDialog" timestamp="1602323462941">
++      <screen x="0" y="0" width="1280" height="680" />
++    </state>
++    <state x="445" y="14" key="RiderGenerateDialog/0.0.1280.680@0.0.1280.680" timestamp="1602323462941" />
+     <state x="142" y="0" key="SettingsEditor" timestamp="1602321822819">
+       <screen x="0" y="0" width="1280" height="680" />
+     </state>
+Index: .idea/.idea.LTH/.idea/contentModel.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ContentModelStore\">\r\n    <e p=\"C:\\Users\\HectorFIORESE\\AppData\\Local\\JetBrains\\Rider2020.2\\extResources\" t=\"IncludeRecursive\" />\r\n    <e p=\"C:\\Users\\HectorFIORESE\\AppData\\Local\\JetBrains\\Rider2020.2\\resharper-host\\Local\\Transient\\Rider\\v202\\SolutionCaches\\_LTH.-287704095.00\" t=\"ExcludeRecursive\" />\r\n    <e p=\"C:\\Users\\HectorFIORESE\\RiderProjects\\LTH\" t=\"IncludeFlat\">\r\n      <e p=\"LTH.sln\" t=\"IncludeFlat\" />\r\n      <e p=\"LTHConsole\" t=\"IncludeRecursive\">\r\n        <e p=\"bin\" t=\"ExcludeRecursive\" />\r\n        <e p=\"LTHConsole.csproj\" t=\"IncludeRecursive\" />\r\n        <e p=\"obj\" t=\"ExcludeRecursive\">\r\n          <e p=\"Debug\" t=\"Include\">\r\n            <e p=\"netcoreapp3.1\" t=\"Include\">\r\n              <e p=\"LTHConsole.AssemblyInfo.cs\" t=\"Include\" />\r\n            </e>\r\n          </e>\r\n        </e>\r\n        <e p=\"Player.cs\" t=\"Include\" />\r\n        <e p=\"Program.cs\" t=\"Include\" />\r\n        <e p=\"Tournament.cs\" t=\"Include\" />\r\n      </e>\r\n      <e p=\"LTHWindow\" t=\"IncludeRecursive\">\r\n        <e p=\"App.xaml\" t=\"Include\" />\r\n        <e p=\"App.xaml.cs\" t=\"Include\" />\r\n        <e p=\"AssemblyInfo.cs\" t=\"Include\" />\r\n        <e p=\"bin\" t=\"ExcludeRecursive\" />\r\n        <e p=\"LTHWindow.csproj\" t=\"IncludeRecursive\" />\r\n        <e p=\"MainWindow.xaml\" t=\"Include\" />\r\n        <e p=\"MainWindow.xaml.cs\" t=\"Include\" />\r\n        <e p=\"obj\" t=\"ExcludeRecursive\">\r\n          <e p=\"Debug\" t=\"Include\">\r\n            <e p=\"netcoreapp3.1\" t=\"Include\">\r\n              <e p=\"App.g.cs\" t=\"Include\" />\r\n              <e p=\"LTHWindow.AssemblyInfo.cs\" t=\"Include\" />\r\n              <e p=\"MainWindow.g.cs\" t=\"Include\" />\r\n            </e>\r\n          </e>\r\n        </e>\r\n      </e>\r\n      <e p=\"packages\" t=\"ExcludeRecursive\" />\r\n    </e>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.LTH/.idea/contentModel.xml	(revision cfba3da52be2635e645ca2a57fd65257adecac4e)
++++ .idea/.idea.LTH/.idea/contentModel.xml	(date 1602323759921)
+@@ -8,6 +8,7 @@
+       <e p="LTHConsole" t="IncludeRecursive">
+         <e p="bin" t="ExcludeRecursive" />
+         <e p="LTHConsole.csproj" t="IncludeRecursive" />
++        <e p="Match.cs" t="Include" />
+         <e p="obj" t="ExcludeRecursive">
+           <e p="Debug" t="Include">
+             <e p="netcoreapp3.1" t="Include">

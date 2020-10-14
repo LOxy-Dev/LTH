@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\HectorFIORESE\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\HectorFIORESE\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_LTH.-287704095.00" t="ExcludeRecursive" />
+    <e p="C:\Users\HectorFIORESE\RiderProjects\LTH" t="IncludeFlat">
+      <e p="LTH.sln" t="IncludeFlat" />
+      <e p="LTHConsole" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="LTHConsole.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="LTHConsole.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Tournament" t="Include">
+          <e p="Brackets" t="Include">
+            <e p="Bracket.cs" t="Include" />
+            <e p="Direct.cs" t="Include" />
+            <e p="Groups.cs" t="Include" />
+          </e>
+          <e p="Match.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
+          <e p="Results.cs" t="Include" />
+          <e p="Rounds" t="Include">
+            <e p="DirectEliminationRound.cs" t="Include" />
+            <e p="GroupRound.cs" t="Include" />
+            <e p="MultiRounds.cs" t="Include" />
+            <e p="Round.cs" t="Include" />
+          </e>
+          <e p="Tournament.cs" t="Include" />
+        </e>
+      </e>
+      <e p="LTHWindow" t="IncludeRecursive">
+        <e p="App.xaml" t="Include" />
+        <e p="App.xaml.cs" t="Include" />
+        <e p="AssemblyInfo.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="LTHWindow.csproj" t="IncludeRecursive" />
+        <e p="MainWindow.xaml" t="Include" />
+        <e p="MainWindow.xaml.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="App.g.cs" t="Include" />
+              <e p="LTHWindow.AssemblyInfo.cs" t="Include" />
+              <e p="MainWindow.g.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
