@@ -8,32 +8,36 @@ namespace LTHConsole.Tournament.Brackets
         public bool IsFinished { get; private set; }
         public BracketState State { get; protected set; }
 
-        protected int ActualMatchId = 0;
+        private int _actualMatchId;
         public int ScoreObjective { get; set; }
-        public int[] Score { get; }
         public Objectives Type { get; set; }
 
         protected List<Player> Players;
-        protected List<Match> Matches { get; }
-        
+        protected List<Match> Matches { get; set; }
+
         protected Bracket(List<Player> players)
         {
             Players = players;
             Matches = new List<Match>();
-            Score = new int[2];
+            _actualMatchId = 0;
             IsFinished = false;
+        }
+
+        public virtual void Init()
+        {
+            
         }
 
         public Match GetActualMatch()
         {
-            return Matches.ElementAt(ActualMatchId);
+            return Matches.ElementAt(_actualMatchId);
         }
 
         // This method calculate the who won the match and switch to the next one
         public virtual void CheckMatch()
         {
-            ActualMatchId++;
-            if (ActualMatchId == Matches.Count) IsFinished = true;
+            _actualMatchId++;
+            if (_actualMatchId == Matches.Count) IsFinished = true;
         }
 
         // Print the state of the bracket

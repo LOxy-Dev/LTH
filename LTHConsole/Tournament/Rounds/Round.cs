@@ -32,64 +32,62 @@ namespace LTHConsole.Tournament.Rounds
             Console.ResetColor();
             
             // Ask for the score
-            int i;
-            // Player 1
-            while (true)
+            
+            bool b;
+            do
             {
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                Console.WriteLine("Enter the score of {0}...", player1.Name);
-                Console.ResetColor();
-                try
+                int i, j;
+                // Player 1
+                while (true)
                 {
-                    i = Int32.Parse(Console.ReadLine()!);
-                    if (i >= 0 && i <= Bracket.ScoreObjective)
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine("Enter the score of {0}...", player1.Name);
+                    Console.ResetColor();
+                    try
                     {
+                        i = Int32.Parse(Console.ReadLine()!);
+                        if (i >= 0 && i <= Bracket.ScoreObjective)
+                        {
+                            break;
+                        }
+
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("ERROR : Your answer can't be lower than 0 or upper than {0}.", Bracket.ScoreObjective);
+                        Console.ResetColor();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine(e);
+                        Console.ResetColor();
+                        throw;
+                    }
+                }
+
+                // Player 2
+                while (true)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine("Enter the score of {0}...", player2.Name);
+                    Console.ResetColor();
+                    try
+                    {
+                        j = Int32.Parse(Console.ReadLine()!);
                         break;
                     }
-
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("ERROR : Your answer can't be lower than 0 or upper than {0}.", Bracket.ScoreObjective);
-                    Console.ResetColor();
-                }
-                catch (Exception e)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine(e);
-                    Console.ResetColor();
-                    throw;
-                }
-            }
-
-            Bracket.Score[0] = i;
-            
-            // Player 2
-            while (true)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                Console.WriteLine("Enter the score of {0}...", player2.Name);
-                Console.ResetColor();
-                try
-                {
-                    i = Int32.Parse(Console.ReadLine()!);
-                    if (i >= 0 && i <= Bracket.ScoreObjective)
+                    catch (Exception e)
                     {
-                        break;
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine(e); 
+                        Console.ResetColor();
+                        throw;
                     }
+                }
+                
+                // Try to set scores
+                b = Bracket.GetActualMatch().SetScore(i, j);
+            } while (!b);
 
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("ERROR : Your answer can't be lower than 0 or upper than {0}.", Bracket.ScoreObjective);
-                    Console.ResetColor();
-                }
-                catch (Exception e)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine(e);
-                    Console.ResetColor();
-                    throw;
-                }
-            }
-            Bracket.Score[1] = i;
-            
             // Set the winner
             Bracket.CheckMatch();
             Bracket.Print();

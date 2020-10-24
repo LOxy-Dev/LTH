@@ -5,7 +5,7 @@ namespace LTHConsole.Tournament.Brackets
 {
     public class Direct : Bracket
     {
-        private int NbMatches;
+        private int _nbMatches;
 
         private Player _bufferPlayer;
         public Direct(List<Player> players) : base(players)
@@ -22,7 +22,7 @@ namespace LTHConsole.Tournament.Brackets
                 Matches.Add(new Match(Players[i], Players[i + 1]));
             }
 
-            NbMatches = nbPlayers / 2;
+            _nbMatches = nbPlayers / 2;
             SetState();
         }
 
@@ -31,7 +31,7 @@ namespace LTHConsole.Tournament.Brackets
             var match = GetActualMatch();
             Player winner;
             Player looser;
-            if (Score[0] == ScoreObjective)
+            if (match.Score[0] == ScoreObjective)
             {
                 winner = match.Player1;
                 looser = match.Player2;
@@ -42,10 +42,10 @@ namespace LTHConsole.Tournament.Brackets
                 looser = match.Player1;
             }
             Win(winner, looser);
-            NbMatches--;
-            if (NbMatches == 0)
+            _nbMatches--;
+            if (_nbMatches == 0)
             {
-                NbMatches = State switch
+                _nbMatches = State switch
                 {
                     BracketState.Plus => 32,
                     BracketState.ThirtyTwo => 16,
@@ -53,7 +53,7 @@ namespace LTHConsole.Tournament.Brackets
                     BracketState.Eight => 4,
                     BracketState.Quarter => 2,
                     BracketState.Semi => 1,
-                    _ => NbMatches
+                    _ => _nbMatches
                 };
                 SetState();
             }
@@ -80,12 +80,12 @@ namespace LTHConsole.Tournament.Brackets
 
         private void SetState()
         {
-            if (NbMatches <= 1) State = BracketState.Final;
-            else if (NbMatches <= 2) State = BracketState.Semi;
-            else if (NbMatches <= 4) State = BracketState.Quarter;
-            else if (NbMatches <= 8) State = BracketState.Eight;
-            else if (NbMatches <= 16) State = BracketState.Sixteen;
-            else if (NbMatches <= 32) State = BracketState.ThirtyTwo;
+            if (_nbMatches <= 1) State = BracketState.Final;
+            else if (_nbMatches <= 2) State = BracketState.Semi;
+            else if (_nbMatches <= 4) State = BracketState.Quarter;
+            else if (_nbMatches <= 8) State = BracketState.Eight;
+            else if (_nbMatches <= 16) State = BracketState.Sixteen;
+            else if (_nbMatches <= 32) State = BracketState.ThirtyTwo;
             else State = BracketState.Plus;
         }
     }

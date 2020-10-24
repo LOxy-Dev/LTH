@@ -18,7 +18,7 @@ namespace LTHConsole.Tournament.Rounds
         {
             
         }
-        
+
         // This method init the participants
         private void InitParticipants()
         {
@@ -107,13 +107,9 @@ namespace LTHConsole.Tournament.Rounds
 
             // Create the bracket
             Bracket = new Groups(participants);
-            Bracket.Type = Objectives.FirstTo;
-            Bracket.ScoreObjective = 3;
-        }
-
-        public override void Print()
-        {
-            base.Print();
+            Bracket.Type = Objectives.BestOf;
+            Bracket.ScoreObjective = 5;
+            Bracket.Init();
         }
     }
 }
