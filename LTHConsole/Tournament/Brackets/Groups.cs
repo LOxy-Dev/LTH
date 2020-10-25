@@ -38,7 +38,7 @@ namespace LTHConsole.Tournament.Brackets
             {
                 Draw();
             }
-            else if (match.Score[0] > ScoreObjective)
+            else if (match.Score[0] > match.Score[1])
             {
                 Win(match.Player1, match.Player2);
             }
@@ -88,7 +88,7 @@ namespace LTHConsole.Tournament.Brackets
             var firstLine = "|  Position  |  WLD  |  Score  |";
             var builder = new StringBuilder();
             builder.Append("|  ");
-            for (int i = 0; i < longestName; i++)
+            for (var i = 0; i < longestName; i++)
             {
                 builder.Append("x");
             }

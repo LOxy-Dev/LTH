@@ -10,10 +10,10 @@ namespace LTHConsole.Tournament.Brackets
         private Player _bufferPlayer;
         public Direct(List<Player> players) : base(players)
         {
-            Init();
+            
         }
 
-        private void Init()
+        public override void Init()
         {
             var nbPlayers = Players.Count % 2 != 0 ? Players.Count - 1 : Players.Count;
 
