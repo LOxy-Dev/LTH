@@ -6,4 +6,8 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
+    </ItemGroup>
+
 </Project>

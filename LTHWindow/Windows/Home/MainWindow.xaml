@@ -1,0 +1,21 @@
+﻿<Window x:Class="LTHWindow.Windows.Home.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LTHWindow"
+        mc:Ignorable="d"
+        Title="{StaticResource AppName}" Height="450" Width="800">
+    
+    <Grid>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="{StaticResource AppVersion}" />
+        
+        <WrapPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Name="CreateNewButton" Click="CreateNewButtonBase_OnClick">Create new tournament</Button>
+            <Separator Height="5" Opacity="0"></Separator>
+            <Button Name="LoadButton" Click="LoadButton_OnClick">Load a tournament</Button>
+            <Separator Height="15" Opacity="0"></Separator>
+            <Button Name="PreferencesButton" Click="PreferencesButton_OnClick">Preferences</Button>
+        </WrapPanel>
+    </Grid>
+</Window>
