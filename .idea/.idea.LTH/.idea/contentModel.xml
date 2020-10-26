@@ -44,9 +44,17 @@
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
               <e p="App.g.cs" t="Include" />
-              <e p="CreateNewWindow.g.cs" t="Include" />
               <e p="LTHWindow.AssemblyInfo.cs" t="Include" />
-              <e p="MainWindow.g.cs" t="Include" />
+              <e p="Windows" t="Include">
+                <e p="CreateNew" t="Include">
+                  <e p="CreateNewWindow.g.cs" t="Include" />
+                  <e p="PlayersGenerator.g.cs" t="Include" />
+                  <e p="TournamentGenerator.g.cs" t="Include" />
+                </e>
+                <e p="Home" t="Include">
+                  <e p="MainWindow.g.cs" t="Include" />
+                </e>
+              </e>
             </e>
           </e>
         </e>
@@ -66,6 +74,8 @@
             <e p="CreateNewWindow.xaml.cs" t="Include" />
             <e p="PlayersGenerator.xaml" t="Include" />
             <e p="PlayersGenerator.xaml.cs" t="Include" />
+            <e p="RoundGenerator.xaml" t="Include" />
+            <e p="RoundGenerator.xaml.cs" t="Include" />
             <e p="TournamentGenerator.xaml" t="Include" />
             <e p="TournamentGenerator.xaml.cs" t="Include" />
           </e>
