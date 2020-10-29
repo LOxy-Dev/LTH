@@ -7,12 +7,12 @@ namespace LTHWindow.Tournament
     {
         public string Name { get; }
         public List<Player> Players { get; }
-        private Round _round;
+        public Round Round { get; }
         public Tournament(string name, int nbPlayer, Round round)
         {
             Name = name;
             Players = new List<Player>(nbPlayer);
-            _round = round;
+            Round = round;
         }
     }
 }

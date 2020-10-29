@@ -1,4 +1,6 @@
-﻿namespace LTHWindow.Tournament
+﻿using System.Windows.Controls;
+
+namespace LTHWindow.Tournament
 {
     public class Player
     {

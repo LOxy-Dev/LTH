@@ -49,6 +49,7 @@
                 <e p="CreateNew" t="Include">
                   <e p="CreateNewWindow.g.cs" t="Include" />
                   <e p="PlayersGenerator.g.cs" t="Include" />
+                  <e p="RoundGenerator.g.cs" t="Include" />
                   <e p="TournamentGenerator.g.cs" t="Include" />
                 </e>
                 <e p="Home" t="Include">

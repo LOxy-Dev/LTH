@@ -4,7 +4,7 @@ using System.Windows;
 namespace LTHWindow.Windows.CreateNew
 {
     // TODO Make generation at the end of the process
-    public partial class CreateNewTournament : Window
+    public partial class CreateNewWindow : Window
     {
         private GenerationPhases _phase;
         
@@ -12,7 +12,7 @@ namespace LTHWindow.Windows.CreateNew
         private readonly PlayersGenerator _plyrGenerator;
         private readonly RoundGenerator _roundGenerator;
         
-        public CreateNewTournament()
+        public CreateNewWindow()
         {
             InitializeComponent();
 
@@ -45,10 +45,14 @@ namespace LTHWindow.Windows.CreateNew
                     _plyrGenerator.GeneratePlayers();
                     
                     // Generate and show round generator interface
+                    _roundGenerator.Init();
                     ContentHolder.Content = _roundGenerator;
                     _phase = GenerationPhases.Round;
                     break;
                 case GenerationPhases.Round:
+                    App.Tournament.Round.Init();
+                
+                    Close();                
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -63,6 +67,7 @@ namespace LTHWindow.Windows.CreateNew
             {
                 GenerationPhases.Tournament => _trnGenerator.IsFill,
                 GenerationPhases.Players => _plyrGenerator.IsFill(),
+                GenerationPhases.Round => true,
                 _ => false
             };
         }

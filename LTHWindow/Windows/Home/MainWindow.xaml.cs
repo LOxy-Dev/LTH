@@ -16,7 +16,7 @@ namespace LTHWindow.Windows.Home
 
         private void CreateNewButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            var createNewWnd = new CreateNewTournament(); 
+            var createNewWnd = new CreateNewWindow(); 
             
             createNewWnd.ShowDialog();
         }

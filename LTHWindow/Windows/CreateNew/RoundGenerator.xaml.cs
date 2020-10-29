@@ -8,5 +8,14 @@ namespace LTHWindow.Windows.CreateNew
         {
             InitializeComponent();
         }
+
+        public void Init()
+        {
+            var panel = App.Tournament.Round.GetGenerator();
+            
+            var t = new WrapPanel();
+            t.Children.Add(new Label {Content = "Test"});
+            Grid.Children.Add(panel);
+        }
     }
 }
