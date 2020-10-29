@@ -81,8 +81,8 @@
             <e p="TournamentGenerator.xaml.cs" t="Include" />
           </e>
           <e p="Home" t="Include">
-            <e p="MainWindow.xaml" t="Include" />
-            <e p="MainWindow.xaml.cs" t="Include" />
+            <e p="HomeWindow.xaml" t="Include" />
+            <e p="HomeWindow.xaml.cs" t="Include" />
           </e>
         </e>
       </e>

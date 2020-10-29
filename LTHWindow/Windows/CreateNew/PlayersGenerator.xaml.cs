@@ -1,5 +1,4 @@
-﻿//using System.Linq; // UNUSER
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using LTHWindow.Tournament;
 
 namespace LTHWindow.Windows.CreateNew
@@ -20,7 +19,7 @@ namespace LTHWindow.Windows.CreateNew
             {
                 var box = new TextBox
                 {
-                    Text = "Player" + (i + 1),
+                    Text = "Player " + (i + 1),
                 };
 
                 BoxesPanel.Children.Add(box);
@@ -61,13 +60,6 @@ namespace LTHWindow.Windows.CreateNew
                 var text = tBox.Text;
                 // Check if empty
                 if (text.Length < 1) return false;
-                /* IF CONTAINS BANNED CHARACTERS
-                // Check if it contains impossible values
-                var impossibleValues = new[] {' ', '/', ';', '°'};
-                foreach (var c in text)
-                {
-                    if (impossibleValues.Contains(c)) return false;
-                }*/
             }
             return true;
         }

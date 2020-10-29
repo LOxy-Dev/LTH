@@ -8,6 +8,7 @@
         <!-- Application information -->
         <system:String x:Key="AppName">LAN Tournament Helper GUI</system:String>
         <system:String x:Key="AppVersion">V dev 1.0</system:String>
+        <system:String x:Key="AppTag">LTH</system:String>
         
         <!-- Tournament Types -->
         <x:Array x:Key="TournamentTypes" Type="system:String">

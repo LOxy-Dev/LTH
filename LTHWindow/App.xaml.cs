@@ -15,13 +15,13 @@ namespace LTHWindow
     /// </summary>
     public partial class App : Application
     {
-        private static MainWindow _homeWnd;
+        private static HomeWindow _homeWnd;
         
         public static Tournament.Tournament Tournament { get; set; }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            _homeWnd = new MainWindow();
+            _homeWnd = new HomeWindow();
             
             _homeWnd.Show();
         }
