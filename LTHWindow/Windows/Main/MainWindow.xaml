@@ -1,0 +1,12 @@
+﻿<Window x:Class="LTHWindow.Windows.Main.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:LTHWindow.Windows.Main"
+        mc:Ignorable="d"
+        Title="{StaticResource AppName}" Height="5000" Width="1080">
+    <Grid>
+        <Label Content="{StaticResource AppVersion}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>

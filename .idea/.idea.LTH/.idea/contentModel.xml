@@ -84,6 +84,10 @@
             <e p="HomeWindow.xaml" t="Include" />
             <e p="HomeWindow.xaml.cs" t="Include" />
           </e>
+          <e p="Main" t="Include">
+            <e p="MainWindow.xaml" t="Include" />
+            <e p="MainWindow.xaml.cs" t="Include" />
+          </e>
         </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
