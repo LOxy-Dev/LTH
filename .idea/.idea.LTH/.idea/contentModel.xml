@@ -53,6 +53,9 @@
                   <e p="TournamentGenerator.g.cs" t="Include" />
                 </e>
                 <e p="Home" t="Include">
+                  <e p="HomeWindow.g.cs" t="Include" />
+                </e>
+                <e p="Main" t="Include">
                   <e p="MainWindow.g.cs" t="Include" />
                 </e>
               </e>

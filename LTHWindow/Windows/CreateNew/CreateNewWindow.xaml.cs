@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text.Json;
 using System.Windows;
 
 namespace LTHWindow.Windows.CreateNew
@@ -48,11 +50,15 @@ namespace LTHWindow.Windows.CreateNew
                     _roundGenerator.Init();
                     ContentHolder.Content = _roundGenerator;
                     _phase = GenerationPhases.Round;
+                    
+                    // Specific case : NextButton enabled by default
+                    NextButton.IsEnabled = true;
                     break;
                 case GenerationPhases.Round:
                     App.Tournament.Round.Init();
-                
-                    Close();                
+
+                    // Close window
+                    Close();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

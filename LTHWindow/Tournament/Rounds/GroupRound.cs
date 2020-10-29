@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using WrapPanel = System.Windows.Controls.WrapPanel;
 
@@ -8,21 +10,31 @@ namespace LTHWindow.Tournament.Rounds
     {
         public override void Init()
         {
-            foreach (UIElement generatorChild in Generator.Children)
+            var participants = new List<Player>();
+            foreach (UIElement generatorChild in Generator.Children) // Each WrapPanel in Grid
             {
                 if (generatorChild.GetType() != typeof(WrapPanel)) continue;
+                
                 var panel = (WrapPanel) generatorChild;
-                foreach (var panelChild in panel.Children)
+                foreach (var panelChild in panel.Children) // Each WrapPanel in the first panel (player selector etc..)
                 {
-                    if (panelChild.GetType() != typeof(CheckBox)) continue;
-                    var checkBox = (CheckBox) panelChild;
+                    if (panelChild.GetType() != typeof(WrapPanel)) continue;
+                    var selectorPanel = (WrapPanel) panelChild;
+                    foreach (var selectorItems in selectorPanel.Children) // Each player selector (checkBox + label)
+                    {
+                        if (selectorItems.GetType() != typeof(CheckBox)) continue;
+                        var checkBox = (CheckBox) selectorItems;
 
-                    if (checkBox.IsChecked != true) continue;
-                    var idOfBox = int.Parse(checkBox.Name.Replace("P", ""));
-                    
-                    Players.Add(App.Tournament.Players[idOfBox]);
+                        if (checkBox.IsChecked != true) continue;
+                        var idOfBox = int.Parse(checkBox.Name.Replace("P", ""));
+
+                        var player = App.Tournament.Players[idOfBox];
+                        participants.Add(player);
+                    }
                 }
             }
+
+            Players = participants;
         }
 
         public override WrapPanel GetGenerator()
