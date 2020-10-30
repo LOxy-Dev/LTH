@@ -4,7 +4,7 @@ namespace LTHWindow.Windows.Main
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(Tournament.Tournament tournament)
         {
             InitializeComponent();
         }

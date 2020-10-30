@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using LTHWindow.Windows.CreateNew;
+﻿using System.Windows;
 using LTHWindow.Windows.Home;
+using LTHWindow.Windows.Main;
 
 namespace LTHWindow
 {
@@ -16,6 +10,7 @@ namespace LTHWindow
     public partial class App : Application
     {
         private static HomeWindow _homeWnd;
+        private static MainWindow _mainWnd;
         
         public static Tournament.Tournament Tournament { get; set; }
 
@@ -24,6 +19,15 @@ namespace LTHWindow
             _homeWnd = new HomeWindow();
             
             _homeWnd.Show();
+        }
+
+        public static void LoadMainWindow(Tournament.Tournament tournament)
+        {
+            if (_homeWnd.IsEnabled)
+                _homeWnd.Close();
+            
+            _mainWnd = new MainWindow(tournament);
+            _mainWnd.Show();
         }
     }
 }

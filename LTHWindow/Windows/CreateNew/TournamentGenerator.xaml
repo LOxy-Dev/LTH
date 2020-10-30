@@ -19,6 +19,13 @@
             
             <Separator Height="10" Opacity="0"></Separator>
             
+            <!-- File path -->
+            <WrapPanel Orientation="Horizontal">
+                <Label FontWeight="SemiBold">File place</Label>
+                <Separator Width="5" Opacity="0"></Separator>
+                <TextBox Name="FileBox"></TextBox>
+            </WrapPanel>
+            
             <!-- Number of players -->
             <WrapPanel Orientation="Horizontal">
                 <Label FontWeight="SemiBold">Number of players :</Label>

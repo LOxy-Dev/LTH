@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
+using LTHWindow.Windows.Main;
+using Action = LTHWindow.Windows.Main.Action;
 
 namespace LTHWindow.Windows.CreateNew
 {
@@ -59,6 +62,9 @@ namespace LTHWindow.Windows.CreateNew
 
                     // Close window
                     Close();
+                    
+                    // Generate and load tournament
+                    GenerateThenLoad();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -76,6 +82,48 @@ namespace LTHWindow.Windows.CreateNew
                 GenerationPhases.Round => true,
                 _ => false
             };
+        }
+
+        private void GenerateThenLoad()
+        {
+            // Create the loading screen
+            var loadingDial = new LoadingDialog();
+            var actions = new List<Action>
+            {
+                new Action("Serializing tournament object..."),
+                new Action("Creating file..."),
+                new Action("Deserializing object from file..."),
+                new Action("Loading...")
+            };
+            
+            loadingDial.AddActions(actions);
+            loadingDial.Init();
+            
+            loadingDial.Show();
+
+            // Serialize object
+            var options = new JsonSerializerOptions {WriteIndented = true};
+            var jsonString = JsonSerializer.Serialize(App.Tournament, options);
+            loadingDial.FinishAction();
+            
+            // Create file
+            if (File.Exists(App.Tournament.FilePath))
+            {
+                File.Delete(App.Tournament.FilePath);
+            }
+            File.WriteAllText(App.Tournament.FilePath, jsonString);
+            loadingDial.FinishAction();
+
+            // Deserialize object
+            var tournament = JsonSerializer.Deserialize<Tournament.Tournament>(File.ReadAllText(App.Tournament.FilePath));
+            
+            // Load the file in main window
+            App.LoadMainWindow(tournament);
+            loadingDial.FinishAction();
+            loadingDial.Close();
+            
+            // Close create new window
+            Close();
         }
     }
 

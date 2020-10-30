@@ -6,6 +6,7 @@ namespace LTHWindow.Tournament
     public class Tournament
     {
         public string Name { get; }
+        public string FilePath { get; set; }
         public List<Player> Players { get; }
         public Round Round { get; }
         public Tournament(string name, int nbPlayer, Round round)
