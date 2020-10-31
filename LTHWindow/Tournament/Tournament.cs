@@ -5,15 +5,15 @@ namespace LTHWindow.Tournament
 {
     public class Tournament
     {
-        public string Name { get; }
+        public string Name { get; set; }
         public string FilePath { get; set; }
-        public List<Player> Players { get; }
-        public Round Round { get; }
-        public Tournament(string name, int nbPlayer, Round round)
+        public List<Player> Players { get; set; }
+        public Round Round { get; set; }
+        public Tournament()
         {
-            Name = name;
-            Players = new List<Player>(nbPlayer);
-            Round = round;
+            Name = "Tournament";
+            Players = new List<Player>();
+            Round = new Round();
         }
     }
 }

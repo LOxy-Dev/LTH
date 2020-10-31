@@ -8,6 +8,8 @@ namespace LTHWindow.Tournament.Brackets
     {
         public Groups(List<Player> players) : base(players)
         {
+            Players = players;
+            
             Init();
         }
 
@@ -17,7 +19,11 @@ namespace LTHWindow.Tournament.Brackets
             {
                 for (var j = 0; j < i; j++)
                 {
-                    var match = new Match(Players.ElementAt(j), Players.ElementAt(i));
+                    var match = new Match()
+                    {
+                        Player1 = Players.ElementAt(j),
+                        Player2 = Players.ElementAt(i)
+                    };
                     Matches.Add(match);
                 }
             }

@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="Loading" Height="225" Width="300" ResizeMode="NoResize">
     <Grid>
-        <WrapPanel Orientation="Vertical">
-            <TextBlock Name="ActionText">None</TextBlock>
-            <ProgressBar Name="ProgressBar"></ProgressBar>
+        <WrapPanel Orientation="Vertical" HorizontalAlignment="Center">
+            <TextBlock Name="ActionText" HorizontalAlignment="Center">None</TextBlock>
+            <ProgressBar Name="ProgressBar" HorizontalAlignment="Center" Width="100" Height="20"></ProgressBar>
         </WrapPanel>
     </Grid>
 </Window>

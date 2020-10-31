@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using LTHWindow.Tournament.Brackets;
 
 namespace LTHWindow.Tournament.Rounds
 {
@@ -8,7 +8,9 @@ namespace LTHWindow.Tournament.Rounds
     {
         protected List<Player> Players;
 
-        protected WrapPanel Generator = new WrapPanel
+        public Bracket Bracket { get; protected set; }
+
+        protected readonly WrapPanel Generator = new WrapPanel
         {
             Name = "Generator",
             Orientation = Orientation.Vertical

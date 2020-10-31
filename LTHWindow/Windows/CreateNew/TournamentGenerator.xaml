@@ -13,18 +13,20 @@
             <!-- Name -->
             <WrapPanel Orientation="Horizontal">
                 <Label FontWeight="SemiBold">Tournament's Name :</Label>
-                <Separator Width="5" Opacity="0"></Separator>
-                <TextBox Name="NameBox" Width="60" Text="Tournament"></TextBox>
+                <Separator Width="5" Opacity="0" />
+                <TextBox Name="NameBox" Width="60" Text="Tournament" />
             </WrapPanel>
             
-            <Separator Height="10" Opacity="0"></Separator>
+            <Separator Height="10" Opacity="0" />
             
             <!-- File path -->
             <WrapPanel Orientation="Horizontal">
                 <Label FontWeight="SemiBold">File place</Label>
-                <Separator Width="5" Opacity="0"></Separator>
-                <TextBox Name="FileBox"></TextBox>
+                <Separator Width="5" Opacity="0" />
+                <TextBox Name="FileBox" />
             </WrapPanel>
+            
+            <Separator Height="10" Opacity="0" />
             
             <!-- Number of players -->
             <WrapPanel Orientation="Horizontal">
@@ -33,13 +35,13 @@
                 <xctk:IntegerUpDown Name="NbPlayersBox" Value="2" Minimum="2"></xctk:IntegerUpDown>
             </WrapPanel>
             
-            <Separator Height="10" Opacity="0"></Separator>
+            <Separator Height="10" Opacity="0" />
             
             <!-- Type -->
             <WrapPanel Orientation="Horizontal">
                 <Label FontWeight="SemiBold">Tournament type :</Label>
-                <Separator Width="5" Opacity="0"></Separator>
-                <ComboBox Name="TypeBox" ItemsSource="{StaticResource TournamentTypes}" SelectionChanged="TypeBox_OnSelectionChanged"></ComboBox>
+                <Separator Width="5" Opacity="0" />
+                <ComboBox Name="TypeBox" ItemsSource="{StaticResource TournamentTypes}" SelectionChanged="TypeBox_OnSelectionChanged" />
             </WrapPanel>
         </WrapPanel>
     </Grid>

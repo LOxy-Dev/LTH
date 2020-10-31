@@ -46,7 +46,7 @@ namespace LTHWindow.Windows.CreateNew
                 
                 var tBox = (TextBox) me;
 
-                App.Tournament.Players.Add( new Player(tBox.Text));
+                App.Tournament.Players.Add( new Player() {Name = tBox.Text});
             }
         }
         

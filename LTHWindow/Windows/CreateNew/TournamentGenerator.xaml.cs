@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using LTHWindow.Tournament;
 using LTHWindow.Tournament.Rounds;
 using LTHWindow.Windows.Home;
 
@@ -24,7 +26,7 @@ namespace LTHWindow.Windows.CreateNew
             if (NbPlayersBox.Value != null)
             {
                 var tNbPlayers = NbPlayersBox.Value.Value;
-                var round = new Round();
+                var tRound = new Round();
 
                 var t = (Array) Application.Current.FindResource("TournamentTypes");
                 var ch = t.GetValue(0)?.ToString() ?? throw new ArgumentNullException("t.GetValue(0).ToString()");
@@ -33,12 +35,18 @@ namespace LTHWindow.Windows.CreateNew
 
                 // define round type
                 if (TypeBox.SelectedItem.ToString() == ch)
-                    round = new GroupRound();
+                    tRound = new GroupRound();
                 else if (TypeBox.SelectedItem.ToString() == de)
-                    round = new DirectEliminationRound();
-                else if (TypeBox.SelectedItem.ToString() == mr) round = new MultiRounds();
+                    tRound = new DirectEliminationRound();
+                else if (TypeBox.SelectedItem.ToString() == mr) tRound = new MultiRounds();
 
-                App.Tournament = new Tournament.Tournament(tName, tNbPlayers, round) {FilePath = FileBox.Text + "\\" + NameBox.Text + ".json"};
+                App.Tournament = new Tournament.Tournament
+                {
+                    Name = tName,
+                    FilePath = FileBox.Text + "\\" + NameBox.Text + ".json",
+                    Players = new List<Player>(tNbPlayers),
+                    Round = tRound
+                };
             }
         }
 

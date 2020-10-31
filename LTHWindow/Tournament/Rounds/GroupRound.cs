@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using LTHWindow.Tournament.Brackets;
 using WrapPanel = System.Windows.Controls.WrapPanel;
 
 namespace LTHWindow.Tournament.Rounds
@@ -35,6 +36,7 @@ namespace LTHWindow.Tournament.Rounds
             }
 
             Players = participants;
+            Bracket = new Groups(Players);
         }
 
         public override WrapPanel GetGenerator()

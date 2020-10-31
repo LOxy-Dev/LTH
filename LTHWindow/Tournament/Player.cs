@@ -4,13 +4,13 @@ namespace LTHWindow.Tournament
 {
     public class Player
     {
-        public string Name { get; }
+        public string Name { get; set;  }
         public int WldRatio { get; private set; }
         public int Score { get; set; }
 
-        public Player(string name)
+        public Player()
         {
-            Name = name;
+            Name = "Player";
             WldRatio = 0;
             Score = 0;
         }

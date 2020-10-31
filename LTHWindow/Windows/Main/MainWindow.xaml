@@ -4,9 +4,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:LTHWindow.Windows.Main"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{StaticResource AppName}" Height="5000" Width="1080">
+        Title="{StaticResource AppName}">
     <Grid>
+        <DockPanel>
+            <!-- Matches input-->
+            <WrapPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+                <!-- Match infos -->
+                <TextBlock Name="MInfos"></TextBlock>
+                
+                <!-- Player 1 -->
+                <WrapPanel Orientation="Vertical">
+                    <TextBlock Name="P1">Player 1</TextBlock>
+                    <xctk:IntegerUpDown Name="P1S" Text="0"/>
+                </WrapPanel>
+                
+                <Separator Width=" 20" Opacity="0" />
+                
+                <!-- Player 2 -->
+                <WrapPanel Orientation="Vertical">
+                    <TextBlock Name="P2">Player 2</TextBlock>
+                    <xctk:IntegerUpDown Name="P2S" Text="0"/>
+                </WrapPanel>
+            </WrapPanel>
+            
+            <!-- Bracket Visualizer -->
+            <WrapPanel Name="Visualizer" DockPanel.Dock="Right" />
+        </DockPanel>
+        
         <Label Content="{StaticResource AppVersion}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>
