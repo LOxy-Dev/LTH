@@ -8,12 +8,12 @@ namespace LTHWindow.Tournament
         public string Name { get; set; }
         public string FilePath { get; set; }
         public List<Player> Players { get; set; }
-        public Round Round { get; set; }
+        public IRound Round { get; set; }
         public Tournament()
         {
             Name = "Tournament";
             Players = new List<Player>();
-            Round = new Round();
+            Round = new GroupRound();
         }
     }
 }

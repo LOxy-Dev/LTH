@@ -75,8 +75,8 @@
           <e p="Rounds" t="Include">
             <e p="DirectEliminationRound.cs" t="Include" />
             <e p="GroupRound.cs" t="Include" />
+            <e p="IRound.cs" t="Include" />
             <e p="MultiRounds.cs" t="Include" />
-            <e p="Round.cs" t="Include" />
           </e>
           <e p="Tournament.cs" t="Include" />
         </e>

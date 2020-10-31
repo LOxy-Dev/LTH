@@ -26,7 +26,7 @@ namespace LTHWindow.Windows.CreateNew
             if (NbPlayersBox.Value != null)
             {
                 var tNbPlayers = NbPlayersBox.Value.Value;
-                var tRound = new Round();
+                IRound tRound = new GroupRound();
 
                 var t = (Array) Application.Current.FindResource("TournamentTypes");
                 var ch = t.GetValue(0)?.ToString() ?? throw new ArgumentNullException("t.GetValue(0).ToString()");

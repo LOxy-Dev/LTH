@@ -1,10 +1,16 @@
-﻿namespace LTHWindow.Tournament.Rounds
+﻿using System.Collections.Generic;
+using LTHWindow.Tournament.Brackets;
+
+namespace LTHWindow.Tournament.Rounds
 {
-    public class DirectEliminationRound : Round
+    public class DirectEliminationRound : IRound
     {
-        public override void Init()
+        public List<Player> Players { get; set; }
+        public IBracket Bracket { get; set; }
+
+        public void Init()
         {
-            base.Init();
+            
         }
     }
 }

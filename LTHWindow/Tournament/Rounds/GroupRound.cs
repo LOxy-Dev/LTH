@@ -7,9 +7,21 @@ using WrapPanel = System.Windows.Controls.WrapPanel;
 
 namespace LTHWindow.Tournament.Rounds
 {
-    public class GroupRound : Round
+    public class GroupRound : IRound
     {
-        public override void Init()
+        // Implemented fields
+        public List<Player> Players { get; set; }
+
+        IBracket IRound.Bracket { get; set; }
+        
+        // Fields
+        readonly WrapPanel Generator = new WrapPanel
+        {
+            Name = "Generator",
+            Orientation = Orientation.Vertical
+        };
+
+        public void Init()
         {
             var participants = new List<Player>();
             foreach (UIElement generatorChild in Generator.Children) // Each WrapPanel in Grid
@@ -36,10 +48,10 @@ namespace LTHWindow.Tournament.Rounds
             }
 
             Players = participants;
-            Bracket = new Groups {Players = Players};
+            ((IRound) this).Bracket = new Groups {Players = Players};
         }
 
-        public override WrapPanel GetGenerator()
+        public WrapPanel GetGenerator()
         {
             var playerSelector = new WrapPanel
             {
