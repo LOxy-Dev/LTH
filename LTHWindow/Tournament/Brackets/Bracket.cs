@@ -6,39 +6,27 @@ namespace LTHWindow.Tournament.Brackets
 {
     // This class should not be instantiate.
     // Please use the inherited classes
-    public class Bracket
+    public interface IBracket
     {
         public bool IsFinished { get; protected set; }
-
-        protected int ActualMatchId = 0;
+        protected int ActualMatchId { get; set; }
         public int ScoreObjective { get; set; }
         public int[] Score { get; }
         public Objectives Type { get; set; }
 
-        protected List<Player> Players;
+        public List<Player> Players { get; set; }
         protected List<Match> Matches { get; }
-        
-        protected Bracket(List<Player> players)
-        {
-            Players = players;
-            Matches = new List<Match>();
-            Score = new int[2];
-            IsFinished = false;
-        }
 
-        public virtual Match GetActualMatch()
-        {
-            return Matches.ElementAt(ActualMatchId);
-        }
+        public Match GetActualMatch() => Matches.ElementAt(ActualMatchId);
 
         // This method calculate the who won the match and switch to the next one
-        public virtual void CheckMatch()
+        public void CheckMatch()
         {
             
         }
         
         // Generate the visualisation panel
-        public virtual WrapPanel GetVisualiser()
+        public  WrapPanel GetVisualizer()
         {
             return null;
         }

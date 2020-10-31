@@ -2,11 +2,18 @@
 
 namespace LTHWindow.Tournament.Brackets
 {
-    public class Direct : Bracket
+    public class Direct : IBracket
     {
-        public Direct(List<Player> players) : base(players)
-        {
-            Players = players;
-        }
+        bool IBracket.IsFinished { get; set; }
+
+        int IBracket.ActualMatchId { get; set; }
+
+        public int ScoreObjective { get; set; }
+        public int[] Score { get; }
+        public Objectives Type { get; set; }
+
+        List<Player> IBracket.Players { get; set; }
+
+        List<Match> IBracket.Matches { get; }
     }
 }

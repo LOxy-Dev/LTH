@@ -8,7 +8,7 @@ namespace LTHWindow.Tournament.Rounds
     {
         protected List<Player> Players;
 
-        public Bracket Bracket { get; protected set; }
+        public IBracket Bracket { get; protected set; }
 
         protected readonly WrapPanel Generator = new WrapPanel
         {

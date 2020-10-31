@@ -36,7 +36,7 @@ namespace LTHWindow.Tournament.Rounds
             }
 
             Players = participants;
-            Bracket = new Groups(Players);
+            Bracket = new Groups {Players = Players};
         }
 
         public override WrapPanel GetGenerator()
