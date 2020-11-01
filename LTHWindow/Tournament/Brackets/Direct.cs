@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace LTHWindow.Tournament.Brackets
 {
@@ -15,5 +16,19 @@ namespace LTHWindow.Tournament.Brackets
         List<Player> IBracket.Players { get; set; }
 
         List<Match> IBracket.Matches { get; }
+        public Match GetActualMatch()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CheckMatch()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public WrapPanel GetVisualizer()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

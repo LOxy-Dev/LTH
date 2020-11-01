@@ -1,26 +1,27 @@
 ﻿using System.Windows;
+using System.Windows.Data;
 
 namespace LTHWindow.Windows.Main
 {
     public partial class MainWindow : Window
     {
         private Tournament.Tournament _tournament;
-        
+
         public MainWindow(Tournament.Tournament tournament)
         {
             _tournament = tournament;
-            
+
             InitializeComponent();
 
             Top = 0;
             Left = 0;
             Width = SystemParameters.WorkArea.Width;
             Height = SystemParameters.WorkArea.Height;
-            
-            Init();
+
+            Update();
         }
 
-        private void Init()
+        private void Update()
         {
             _tournament.Round.Init();
             
@@ -37,6 +38,11 @@ namespace LTHWindow.Windows.Main
             P2.Text = p2.Name;
             P1S.Minimum = 0;
             P1S.Maximum = _tournament.Round.Bracket.ScoreObjective;
+        }
+
+        private void MainWindow_OnTargetUpdated(object? sender, DataTransferEventArgs e)
+        {
+            Update();
         }
     }
 }

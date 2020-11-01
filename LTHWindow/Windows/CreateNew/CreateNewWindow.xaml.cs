@@ -90,9 +90,6 @@ namespace LTHWindow.Windows.CreateNew
             var loadingDial = new LoadingDialog();
             var actions = new List<Action>
             {
-                new Action("Serializing tournament object..."),
-                new Action("Creating file..."),
-                new Action("Deserializing object from file..."),
                 new Action("Loading...")
             };
             
@@ -101,24 +98,9 @@ namespace LTHWindow.Windows.CreateNew
             
             loadingDial.Show();
 
-            // Serialize object
-            var options = new JsonSerializerOptions {WriteIndented = true};
-            var jsonString = JsonSerializer.Serialize(App.Tournament, options);
-            loadingDial.FinishAction();
-            
-            // Create file
-            if (File.Exists(App.Tournament.FilePath))
-            {
-                File.Delete(App.Tournament.FilePath);
-            }
-            File.WriteAllText(App.Tournament.FilePath, jsonString);
-            loadingDial.FinishAction();
-
-            // Deserialize object
-            var tournament = JsonSerializer.Deserialize<Tournament.Tournament>(File.ReadAllText(App.Tournament.FilePath));
             
             // Load the file in main window
-            App.LoadMainWindow(tournament);
+            App.LoadMainWindow(App.Tournament);
             loadingDial.FinishAction();
             loadingDial.Close();
             

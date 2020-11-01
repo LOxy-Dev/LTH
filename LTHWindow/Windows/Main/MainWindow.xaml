@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LTHWindow.Windows.Main"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{StaticResource AppName}">
+        Title="{StaticResource AppName}" TargetUpdated="MainWindow_OnTargetUpdated">
     <Grid>
         <DockPanel>
             <!-- Matches input-->

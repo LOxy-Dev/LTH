@@ -16,5 +16,11 @@
             <system:String>Direct elimination</system:String>
             <system:String>Multi rounds</system:String>
         </x:Array>
+        
+        <!-- Score Objective -->
+        <x:Array x:Key="ScoreObjective" Type="system:String">
+            <system:String>Best of</system:String>
+            <system:String>First to</system:String>
+        </x:Array>
     </Application.Resources>
 </Application>
