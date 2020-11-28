@@ -16,8 +16,8 @@ namespace LTHWindow.Windows.CreateNew
         {
             InitializeComponent();
             
-            var userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            FileBox.Text = userPath + "\\Documents";
+            var userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile); 
+            //FileBox.Text = userPath + "\\Documents";
         }
 
         public void GenerateTournament()
@@ -43,7 +43,8 @@ namespace LTHWindow.Windows.CreateNew
                 App.Tournament = new Tournament.Tournament
                 {
                     Name = tName,
-                    FilePath = FileBox.Text + "\\" + NameBox.Text + ".json",
+                    //FilePath = FileBox.Text + "\\" + NameBox.Text + ".json",
+                    FilePath = "",
                     Players = new List<Player>(tNbPlayers),
                     Round = tRound
                 };
