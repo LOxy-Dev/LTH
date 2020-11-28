@@ -27,6 +27,9 @@
                     <TextBlock Name="P2">Player 2</TextBlock>
                     <xctk:IntegerUpDown Name="P2S" Text="0"/>
                 </WrapPanel>
+                
+                <!-- Error message -->
+                <TextBlock Name="ErrorText" Opacity="0" FontStyle="Italic" Foreground="DarkRed"/>
             </WrapPanel>
             
             <!-- Bracket Visualizer -->

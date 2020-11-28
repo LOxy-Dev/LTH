@@ -10,7 +10,7 @@ namespace LTHWindow
     public partial class App : Application
     {
         private static HomeWindow _homeWnd;
-        private static MainWindow _mainWnd;
+        public static MainWindow MainWnd { get; set; }
         
         public static Tournament.Tournament Tournament { get; set; }
 
@@ -26,8 +26,8 @@ namespace LTHWindow
             if (_homeWnd.IsEnabled)
                 _homeWnd.Close();
             
-            _mainWnd = new MainWindow(tournament);
-            _mainWnd.Show();
+            MainWnd = new MainWindow(tournament);
+            MainWnd.Show();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.CodeDom.Compiler;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
@@ -20,10 +19,13 @@ namespace LTHWindow.Tournament.Brackets
         public List<Match> Matches { get; }
 
         // Constructor
-        public Groups(List<Player> players)
+        public Groups(List<Player> players, Objectives objectiveType, int scoreObjective)
         {
             Players = players;
             ActualMatchId = 0;
+
+            Type = objectiveType;
+            ScoreObjective = scoreObjective;
             
             Matches = new List<Match>();
             
@@ -42,22 +44,36 @@ namespace LTHWindow.Tournament.Brackets
 
         public void CheckMatch()
         {
-            if (Score[0] == ScoreObjective && Score[1] == ScoreObjective)
+            var match = GetActualMatch();
+            switch (Type)
             {
-                Draw();
+                case Objectives.BestOf:
+                    // Check if score is valid
+                    if (match.Scores[0] + match.Scores[1] != ScoreObjective)
+                    {
+                        App.MainWnd.ErrorText.Text = "Number of played rounds must be equal to " + ScoreObjective;
+                        App.MainWnd.ErrorText.Opacity = 100;
+
+                        return;
+                    }
+                    
+                    if (match.Scores[0] == match.Scores[1])
+                        Draw(match);
+                    else if (match.Scores[0] > ScoreObjective)
+                        Win(match.Player1, match.Player2);
+                    else
+                        Win(match.Player2, match.Player1);
+                    
+                    break;
+                
+                case Objectives.FirstTo:
+                    if (match.Scores[0] == ScoreObjective)
+                        Win(match.Player1, match.Player2);
+                    else
+                        Win(match.Player2, match.Player1);
+                    break;
             }
-            else if (Score[0] == ScoreObjective)
-            {
-                Win(GetActualMatch().Player1, GetActualMatch().Player2);
-            }
-            else if (Score[1] == ScoreObjective)
-            {
-                Win(GetActualMatch().Player2, GetActualMatch().Player1);
-            }
-            else
-            {
-                Draw();
-            }
+            
             ActualMatchId++;
             Players = Players.OrderByDescending(i => i.WLDRatio).ThenByDescending(j => j.Score).ToList();
             if (ActualMatchId == Matches.Count) IsFinished = true;
@@ -85,9 +101,10 @@ namespace LTHWindow.Tournament.Brackets
             }
         }
         
-        private void Draw()
+        private void Draw(Match match)
         {
-            
+            match.Player1.AddResult(Result.Draw);
+            match.Player2.AddResult(Result.Draw);
         }
     }
 }

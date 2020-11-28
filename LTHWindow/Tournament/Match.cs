@@ -4,6 +4,8 @@
     {
         public Player Player1 { get; }
         public Player Player2 { get; }
+        
+        public int[] Scores { get; set; }
 
         public Match(Player player1, Player player2)
         {

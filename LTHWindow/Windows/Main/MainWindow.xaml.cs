@@ -23,7 +23,7 @@ namespace LTHWindow.Windows.Main
 
         private void Update()
         {
-            _tournament.Round.Init();
+            //_tournament.Round.Init();
             
             var actualMatch = _tournament.Round.Bracket.GetActualMatch();
             var p1 = actualMatch.Player1;

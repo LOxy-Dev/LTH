@@ -98,7 +98,6 @@ namespace LTHWindow.Windows.CreateNew
             
             loadingDial.Show();
 
-            
             // Load the file in main window
             App.LoadMainWindow(App.Tournament);
             loadingDial.FinishAction();

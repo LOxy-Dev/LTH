@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using LTHWindow.Tournament.Brackets;
+using Xceed.Wpf.Toolkit;
 using WrapPanel = System.Windows.Controls.WrapPanel;
 
 namespace LTHWindow.Tournament.Rounds
@@ -12,10 +13,10 @@ namespace LTHWindow.Tournament.Rounds
         // Implemented fields
         public List<Player> Players { get; set; }
 
-        IBracket IRound.Bracket { get; set; }
+        public IBracket Bracket { get; set; }
         
         // Fields
-        readonly WrapPanel Generator = new WrapPanel
+        private readonly WrapPanel _generator = new WrapPanel
         {
             Name = "Generator",
             Orientation = Orientation.Vertical
@@ -24,7 +25,9 @@ namespace LTHWindow.Tournament.Rounds
         public void Init()
         {
             var participants = new List<Player>();
-            foreach (UIElement generatorChild in Generator.Children) // Each WrapPanel in Grid
+            var type = Objectives.BestOf;
+            var scoreObjective = 3;
+            foreach (UIElement generatorChild in _generator.Children) // Each WrapPanel in Grid
             {
                 if (generatorChild.GetType() != typeof(WrapPanel)) continue;
                 
@@ -33,26 +36,74 @@ namespace LTHWindow.Tournament.Rounds
                 {
                     if (panelChild.GetType() != typeof(WrapPanel)) continue;
                     var selectorPanel = (WrapPanel) panelChild;
-                    foreach (var selectorItems in selectorPanel.Children) // Each player selector (checkBox + label)
+
+                    switch (selectorPanel.Name)
                     {
-                        if (selectorItems.GetType() != typeof(CheckBox)) continue;
-                        var checkBox = (CheckBox) selectorItems;
+                        // If selector box
+                        // If objective selector
+                        case "SelectorBox":
+                        {
+                            foreach (var selectorItem in selectorPanel.Children) // Each player selector (checkBox + label)
+                            {
+                                if (selectorItem.GetType() != typeof(WrapPanel)) continue;
+                                var playerSelector = (WrapPanel) selectorItem;
 
-                        if (checkBox.IsChecked != true) continue;
-                        var idOfBox = int.Parse(checkBox.Name.Replace("P", ""));
+                                foreach (var playerSelectorChild in playerSelector.Children)
+                                {
+                                    if (playerSelectorChild.GetType() != typeof(CheckBox)) continue;
+                                    var checkBox = (CheckBox) playerSelectorChild;
 
-                        var player = App.Tournament.Players[idOfBox];
-                        participants.Add(player);
+                                    if (checkBox.IsChecked != true) continue;
+                                    var idOfBox = int.Parse(checkBox.Name.Replace("P", ""));
+
+                                    var player = App.Tournament.Players[idOfBox];
+                                    Console.WriteLine(player.Name);
+                                    participants.Add(player);
+                                }
+                            }
+
+                            break;
+                        }
+                        case "ObjectiveSelector":
+                        {
+                            foreach (var child in selectorPanel.Children)
+                            {
+                                if (child.GetType() == typeof(ComboBox))
+                                {
+                                    var comboBox = (ComboBox) child;
+                                    
+                                    // get all element in resource
+                                    var t = (Array) Application.Current.FindResource("ScoreObjective");
+                                    var bo = t?.GetValue(0)?.ToString();
+                                    var fo = t?.GetValue(1)?.ToString();
+
+                                    if (comboBox.SelectedItem.Equals(bo))
+                                        type = Objectives.BestOf;
+                                    else if (comboBox.SelectedItem.Equals(fo))
+                                        type = Objectives.FirstTo;
+                                }
+
+                                else if (child.GetType() == typeof(IntegerUpDown))
+                                {
+                                    var integerBox = (IntegerUpDown) child;
+
+                                    if (integerBox.Value != null) scoreObjective = (int) integerBox.Value;
+                                }
+                            }
+
+                            break;
+                        }
                     }
                 }
             }
 
             Players = participants;
-            ((IRound) this).Bracket = new Groups(Players = Players);
+            Bracket = new Groups(Players, type, scoreObjective);
         }
 
         public WrapPanel GetGenerator()
         {
+            // Player selector
             var playerSelector = new WrapPanel
             {
                 Name = "SelectorBox",
@@ -79,8 +130,32 @@ namespace LTHWindow.Tournament.Rounds
                 i++;
             }
 
-            Generator.Children.Add(playerSelector);
-            return Generator;
+            _generator.Children.Add(playerSelector);
+            
+            // Objective selector
+            var objectiveSelector = new WrapPanel
+            {
+                Name = "ObjectiveSelector",
+                Orientation = Orientation.Horizontal
+            };
+            
+            var typeSelector = new ComboBox
+            {
+                Name = "TypeSelector",
+                ItemsSource = (Array) Application.Current.FindResource("ScoreObjective")
+            };
+            objectiveSelector.Children.Add(typeSelector);
+            
+            var scoreSelector = new IntegerUpDown
+            {
+                Name = "ScoreSelector",
+                Value = 3,
+                Minimum = 1
+            };
+            objectiveSelector.Children.Add(scoreSelector);
+
+            _generator.Children.Add(objectiveSelector);
+            return _generator;
         }
     }
 }

@@ -10,14 +10,8 @@ namespace LTHWindow.Tournament.Rounds
 
         public IBracket Bracket { get; set; }
 
-        public void Init()
-        {
-            
-        }
+        public void Init();
 
-        public WrapPanel GetGenerator()
-        {
-            return null;
-        }
+        public WrapPanel GetGenerator();
     }
 }
