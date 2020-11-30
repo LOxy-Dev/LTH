@@ -4,6 +4,7 @@ namespace LTHWindow.Windows.CreateNew
 {
     public partial class RoundGenerator : UserControl
     {
+        // TODO no round generation if not multi-rounds tournament
         public RoundGenerator()
         {
             InitializeComponent();
