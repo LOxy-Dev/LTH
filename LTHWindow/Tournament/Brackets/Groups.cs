@@ -51,13 +51,8 @@ namespace LTHWindow.Tournament.Brackets
                 case Objectives.BestOf:
                     // Check if score is valid
                     if (match.Scores[0] + match.Scores[1] != ScoreObjective)
-                    {
-                        App.MainWnd.ErrorText.Text = "Number of played rounds must be equal to " + ScoreObjective;
-                        App.MainWnd.ErrorText.Opacity = 100;
-
                         return;
-                    }
-                    
+
                     if (match.Scores[0] == match.Scores[1])
                         Draw(match);
                     else if (match.Scores[0] > ScoreObjective)
