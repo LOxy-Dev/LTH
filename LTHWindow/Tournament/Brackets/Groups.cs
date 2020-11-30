@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
@@ -72,6 +73,9 @@ namespace LTHWindow.Tournament.Brackets
                     else
                         Win(match.Player2, match.Player1);
                     break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
             
             ActualMatchId++;

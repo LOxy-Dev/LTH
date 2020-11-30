@@ -65,9 +65,9 @@
         </e>
         <e p="Tournament" t="Include">
           <e p="Brackets" t="Include">
-            <e p="Bracket.cs" t="Include" />
             <e p="Direct.cs" t="Include" />
             <e p="Groups.cs" t="Include" />
+            <e p="IBracket.cs" t="Include" />
           </e>
           <e p="Match.cs" t="Include" />
           <e p="Player.cs" t="Include" />
