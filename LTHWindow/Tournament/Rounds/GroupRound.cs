@@ -53,7 +53,6 @@ namespace LTHWindow.Tournament.Rounds
                                 var idOfBox = int.Parse(checkBox.Name.Replace("P", ""));
 
                                 var player = App.Tournament.Players[idOfBox];
-                                Console.WriteLine(player.Name);
                                 participants.Add(player);
                             }
                         }
