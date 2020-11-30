@@ -10,30 +10,40 @@
     <Grid>
         <DockPanel>
             <!-- Matches input-->
-            <WrapPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+            <WrapPanel Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center">
                 <!-- Match infos -->
-                <TextBlock Name="MInfos"></TextBlock>
+                <TextBlock Name="MInfos" />
                 
-                <!-- Player 1 -->
-                <WrapPanel Orientation="Vertical">
-                    <TextBlock Name="P1">Player 1</TextBlock>
-                    <xctk:IntegerUpDown Name="P1S" Text="0"/>
-                </WrapPanel>
-                
-                <Separator Width=" 20" Opacity="0" />
-                
-                <!-- Player 2 -->
-                <WrapPanel Orientation="Vertical">
-                    <TextBlock Name="P2">Player 2</TextBlock>
-                    <xctk:IntegerUpDown Name="P2S" Text="0"/>
+                <!-- Match players score -->
+                <WrapPanel Orientation="Horizontal">
+                    <!-- Player 1 -->
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock Name="P1">Player 1</TextBlock>
+                        <xctk:IntegerUpDown Name="P1S" Text="0" Minimum="0" ValueChanged="OnScoreValueChanged"/>
+                    </WrapPanel>
+                    
+                    <Separator Width=" 20" Opacity="0" />
+                    
+                    <!-- Player 2 -->
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock Name="P2">Player 2</TextBlock>
+                        <xctk:IntegerUpDown Name="P2S" Text="0" Minimum="0" ValueChanged="OnScoreValueChanged"/>
+                    </WrapPanel>
                 </WrapPanel>
                 
                 <!-- Error message -->
-                <TextBlock Name="ErrorText" Opacity="0" FontStyle="Italic" Foreground="DarkRed"/>
+                <TextBlock Name="ErrorText" Visibility="Hidden" FontStyle="Italic" Foreground="DarkRed">
+                    ERROR : The score is not valid
+                </TextBlock>
+                
+                <!-- Register Button -->
+                <Button Name="RegisterButton" IsEnabled="False">Register</Button>
             </WrapPanel>
             
             <!-- Bracket Visualizer -->
-            <WrapPanel Name="Visualizer" DockPanel.Dock="Right" />
+            <WrapPanel Name="Visualizer" DockPanel.Dock="Right">
+                
+            </WrapPanel>
         </DockPanel>
         
         <Label Content="{StaticResource AppVersion}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
