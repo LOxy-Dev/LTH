@@ -36,8 +36,8 @@ namespace LTHWindow.Windows.Main
             
             // Init Player 2
             P2.Text = p2.Name;
-            P1S.Minimum = 0;
-            P1S.Maximum = _tournament.Round.Bracket.ScoreObjective;
+            P2S.Minimum = 0;
+            P2S.Maximum = _tournament.Round.Bracket.ScoreObjective;
         }
 
         private void MainWindow_OnTargetUpdated(object sender, DataTransferEventArgs e)
