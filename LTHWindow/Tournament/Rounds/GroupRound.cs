@@ -27,72 +27,67 @@ namespace LTHWindow.Tournament.Rounds
             var participants = new List<Player>();
             var type = Objectives.BestOf;
             var scoreObjective = 3;
+
             foreach (UIElement generatorChild in _generator.Children) // Each WrapPanel in Grid
             {
-                if (generatorChild.GetType() != typeof(WrapPanel)) continue;
+                if (generatorChild.GetType() != typeof(WrapPanel))
+                    continue;
                 
-                var panel = (WrapPanel) generatorChild;
-                foreach (var panelChild in panel.Children) // Each WrapPanel in the first panel (player selector etc..)
+                switch ((generatorChild as WrapPanel).Name)
                 {
-                    if (panelChild.GetType() != typeof(WrapPanel)) continue;
-                    var selectorPanel = (WrapPanel) panelChild;
-
-                    switch (selectorPanel.Name)
+                    // If selector box
+                    // If objective selector
+                    case "SelectorBox":
                     {
-                        // If selector box
-                        // If objective selector
-                        case "SelectorBox":
+                        foreach (var selectorItem in (generatorChild as WrapPanel).Children) // Each player selector (checkBox + label)
                         {
-                            foreach (var selectorItem in selectorPanel.Children) // Each player selector (checkBox + label)
+                            if (selectorItem.GetType() != typeof(WrapPanel)) continue;
+                            var playerSelector = (WrapPanel) selectorItem;
+
+                            foreach (var playerSelectorChild in playerSelector.Children)
                             {
-                                if (selectorItem.GetType() != typeof(WrapPanel)) continue;
-                                var playerSelector = (WrapPanel) selectorItem;
+                                if (playerSelectorChild.GetType() != typeof(CheckBox)) continue;
+                                var checkBox = (CheckBox) playerSelectorChild;
 
-                                foreach (var playerSelectorChild in playerSelector.Children)
-                                {
-                                    if (playerSelectorChild.GetType() != typeof(CheckBox)) continue;
-                                    var checkBox = (CheckBox) playerSelectorChild;
+                                if (checkBox.IsChecked != true) continue;
+                                var idOfBox = int.Parse(checkBox.Name.Replace("P", ""));
 
-                                    if (checkBox.IsChecked != true) continue;
-                                    var idOfBox = int.Parse(checkBox.Name.Replace("P", ""));
-
-                                    var player = App.Tournament.Players[idOfBox];
-                                    Console.WriteLine(player.Name);
-                                    participants.Add(player);
-                                }
+                                var player = App.Tournament.Players[idOfBox];
+                                Console.WriteLine(player.Name);
+                                participants.Add(player);
                             }
-
-                            break;
                         }
-                        case "ObjectiveSelector":
+
+                        break;
+                    }
+                    case "ObjectiveSelector":
+                    {
+                        foreach (var child in (generatorChild as WrapPanel).Children)
                         {
-                            foreach (var child in selectorPanel.Children)
+                            if (child.GetType() == typeof(ComboBox))
                             {
-                                if (child.GetType() == typeof(ComboBox))
-                                {
-                                    var comboBox = (ComboBox) child;
+                                var comboBox = (ComboBox) child;
                                     
-                                    // get all element in resource
-                                    var t = (Array) Application.Current.FindResource("ScoreObjective");
-                                    var bo = t?.GetValue(0)?.ToString();
-                                    var fo = t?.GetValue(1)?.ToString();
+                                // get all element in resource
+                                var t = (Array) Application.Current.FindResource("ScoreObjective");
+                                var bo = t?.GetValue(0)?.ToString();
+                                var fo = t?.GetValue(1)?.ToString();
 
-                                    if (comboBox.SelectedItem.Equals(bo))
-                                        type = Objectives.BestOf;
-                                    else if (comboBox.SelectedItem.Equals(fo))
-                                        type = Objectives.FirstTo;
-                                }
-
-                                else if (child.GetType() == typeof(IntegerUpDown))
-                                {
-                                    var integerBox = (IntegerUpDown) child;
-
-                                    if (integerBox.Value != null) scoreObjective = (int) integerBox.Value;
-                                }
+                                if (comboBox.SelectedItem.Equals(bo))
+                                    type = Objectives.BestOf;
+                                else if (comboBox.SelectedItem.Equals(fo))
+                                    type = Objectives.FirstTo;
                             }
 
-                            break;
+                            else if (child.GetType() == typeof(IntegerUpDown))
+                            {
+                                var integerBox = (IntegerUpDown) child;
+
+                                if (integerBox.Value != null) scoreObjective = (int) integerBox.Value;
+                            }
                         }
+
+                        break;
                     }
                 }
             }

@@ -40,7 +40,7 @@ namespace LTHWindow.Windows.Main
             P1S.Maximum = _tournament.Round.Bracket.ScoreObjective;
         }
 
-        private void MainWindow_OnTargetUpdated(object? sender, DataTransferEventArgs e)
+        private void MainWindow_OnTargetUpdated(object sender, DataTransferEventArgs e)
         {
             Update();
         }
