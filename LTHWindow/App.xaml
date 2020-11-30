@@ -19,8 +19,8 @@
         
         <!-- Score Objective -->
         <x:Array x:Key="ScoreObjective" Type="system:String">
-            <system:String>Best of</system:String>
             <system:String>First to</system:String>
+            <system:String>Best of</system:String>
         </x:Array>
     </Application.Resources>
 </Application>
