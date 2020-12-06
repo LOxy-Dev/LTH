@@ -46,6 +46,7 @@ namespace LTHWindow.Tournament.Brackets
         public void CheckMatch()
         {
             var match = GetActualMatch();
+            
             switch (Type)
             {
                 case Objectives.BestOf:
@@ -85,18 +86,20 @@ namespace LTHWindow.Tournament.Brackets
 
         private void Win(Player winner, Player looser)
         {
+            var match = GetActualMatch();
+            
             winner.AddResult(Result.Win);
             looser.AddResult(Result.Loss);
 
-            if (Score[0] - Score[1] > 0)
+            if (match.Scores[0] - match.Scores[1] > 0)
             {
-                winner.Score += Score[0] - Score[1];
-                looser.Score -= Score[0] - Score[1];
+                winner.Score += match.Scores[0] - match.Scores[1];
+                looser.Score -= match.Scores[0] - match.Scores[1];
             }
             else
             {
-                winner.Score -= Score[0] - Score[1];
-                looser.Score += Score[0] - Score[1];
+                winner.Score -= match.Scores[0] - match.Scores[1];
+                looser.Score += match.Scores[0] - match.Scores[1];
             }
         }
         

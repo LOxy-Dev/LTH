@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:LTHWindow.Windows.Main"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{StaticResource AppName}" TargetUpdated="MainWindow_OnTargetUpdated">
+        Title="{StaticResource AppName}">
     <Grid>
         <DockPanel>
             <!-- Matches input-->
             <WrapPanel Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center">
                 <!-- Match infos -->
-                <TextBlock Name="MInfos" />
+                <TextBlock Name="MInfos" TextAlignment="Center" FontWeight="SemiBold"/>
                 
                 <!-- Match players score -->
                 <WrapPanel Orientation="Horizontal">
@@ -37,7 +37,7 @@
                 </TextBlock>
                 
                 <!-- Register Button -->
-                <Button Name="RegisterButton" IsEnabled="False">Register</Button>
+                <Button Name="RegisterButton" IsEnabled="False" Click="RegisterButton_OnClick">Register</Button>
             </WrapPanel>
             
             <!-- Bracket Visualizer -->
