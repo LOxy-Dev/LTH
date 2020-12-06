@@ -69,8 +69,8 @@ namespace LTHWindow.Tournament.Rounds
                                     
                                 // get all element in resource
                                 var t = (Array) Application.Current.FindResource("ScoreObjective");
-                                var bo = t?.GetValue(0)?.ToString();
-                                var fo = t?.GetValue(1)?.ToString();
+                                var fo = t?.GetValue(0)?.ToString();
+                                var bo = t?.GetValue(1)?.ToString();
 
                                 if (comboBox.SelectedItem.Equals(bo))
                                     type = Objectives.BestOf;
