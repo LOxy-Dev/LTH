@@ -39,61 +39,101 @@ namespace LTHConsole.Tournament.Rounds
             List<Player> participants = new List<Player>(answer);
             
             Console.ResetColor();
-            for (int i = 0; i < answer; i++)
+            // Quick select
+            if (answer == Program.Tournament.NbPlayer)
             {
-                // Write the list of the players
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Allowed players :");
-                int j = 1;
-                foreach (var player in Program.Tournament.Players)
+                participants = Program.Tournament.Players;
+            }
+            // Manual select
+            else
+            {
+                for (int i = 0; i < answer; i++)
                 {
-                    if (!participants.Contains(player))
+                    // Write the list of the players
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Allowed players :");
+                    int j = 1;
+                    foreach (var player in Program.Tournament.Players)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("  {0}) : {1}", j, player.Name);
-                        j++;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.WriteLine("  {0}", player.Name);
-                    }
-                }
-                Console.ResetColor();
-
-                // Add the selected player to the array
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                Console.WriteLine("Enter the digit of the participant...");
-                Console.ResetColor();
-                while (true)
-                {
-                    try
-                    {
-                        int input = Int32.Parse(Console.ReadLine()!);
-                        if (input < j && input > 0)
+                        if (!participants.Contains(player))
                         {
-                            participants.Add(Program.Tournament.Players.ElementAt(input - 1));
-                            break;
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("  {0}) : {1}", j, player.Name);
+                            j++;
                         }
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("ERROR : Your answer is not allowed.");
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                            Console.WriteLine("  {0}", player.Name);
+                        }
                     }
-                    catch (FormatException)
+
+                    Console.ResetColor();
+
+                    // Add the selected player to the array
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine("Enter the digit of the participant...");
+                    Console.ResetColor();
+                    while (true)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("ERROR : Your answer is not an integer");
-                        Console.ResetColor();
-                        throw;
+                        try
+                        {
+                            int input = Int32.Parse(Console.ReadLine()!);
+                            if (input < j && input > 0)
+                            {
+                                participants.Add(Program.Tournament.Players.ElementAt(input - 1));
+                                break;
+                            }
+
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("ERROR : Your answer is not allowed.");
+                        }
+                        catch (FormatException)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("ERROR : Your answer is not an integer");
+                            Console.ResetColor();
+                            throw;
+                        }
                     }
                 }
             }
             
+            // Create the bracket
             Bracket = new Direct(participants);
+            Bracket.Type = Objectives.FirstTo;
+            Bracket.ScoreObjective = 3;
         }
         
         public override void Print()
         {
-            
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            switch (Bracket.State)
+            {
+                case BracketState.Final:
+                    Console.WriteLine("FINAL");
+                    break;
+                case BracketState.Semi:
+                    Console.WriteLine("SEMI FINAL");
+                    break;
+                case BracketState.Quarter:
+                    Console.WriteLine("QUARTER FINAL");
+                    break;
+                case BracketState.Eight:
+                    Console.WriteLine("EIGHT FINAL");
+                    break;
+                case BracketState.Sixteen:
+                    Console.WriteLine("Round of 16");
+                    break;
+                case BracketState.ThirtyTwo:
+                    Console.WriteLine("Round of 32");
+                    break;
+                case BracketState.Plus:
+                    Console.WriteLine("More than 32 matches");
+                    break;
+            }
+            Console.ResetColor();
+            base.Print();
         }
     }
 }

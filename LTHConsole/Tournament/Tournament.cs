@@ -8,7 +8,7 @@ namespace LTHConsole.Tournament
     {
         private readonly string _name;
 
-        private readonly Round _round;
+        public readonly Round Round;
 
         public int NbPlayer { get; }
         public List<Player> Players { get; }
@@ -18,24 +18,24 @@ namespace LTHConsole.Tournament
             _name = name;
             NbPlayer = nbPlayer;
             Players = players;
-            _round = round;
+            Round = round;
         }
 
         public void Init()
         {
             // Set the new title
             Console.Title = $"LTH Console {Program.Version} : {_name}";
-            _round.Init();
+            Round.Init();
         }
 
         public void Print()
         {
-            while (!_round.Bracket.IsFinished)
+            while (!Round.Bracket.IsFinished)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Tournament : {0}\n", _name);
             
-                _round.Print();
+                Round.Print();
             
                 Console.ResetColor(); 
             }
