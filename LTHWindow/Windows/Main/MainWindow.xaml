@@ -9,8 +9,8 @@
         Title="{StaticResource AppName}">
     <Grid>
         <DockPanel>
-            <!-- Matches input-->
-            <WrapPanel Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20">
+            <!-- Match inputs-->
+            <WrapPanel Name="MInputs" Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20">
                 <!-- Match infos -->
                 <TextBlock Name="MInfos" TextAlignment="Center" FontWeight="SemiBold"/>
                 

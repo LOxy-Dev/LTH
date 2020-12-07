@@ -26,7 +26,8 @@ namespace LTHWindow.Tournament.Brackets
 
             Type = objectiveType;
             ScoreObjective = scoreObjective;
-            
+            Score = new int[players.Count];
+
             Matches = new List<Match>();
             
             // Create matches
@@ -97,7 +98,7 @@ namespace LTHWindow.Tournament.Brackets
             }
         }
         
-        private void Draw(Match match)
+        private static void Draw(Match match)
         {
             match.Player1.AddResult(Result.Draw);
             match.Player2.AddResult(Result.Draw);

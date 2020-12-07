@@ -96,15 +96,20 @@ namespace LTHWindow.Windows.Main
             
             actualMatch.Scores[0] = (int) P1S.Value;
             actualMatch.Scores[1] = (int) P2S.Value;
+            
+            _tournament.Round.Bracket.CheckMatch();
 
             // Code executed if the bracket is finished
             if (_tournament.Round.Bracket.IsFinished)
             {
-                Close();
+                MessageBox.Show("The tournament " + _tournament.Name + " is over.\n" +
+                                _tournament.Round.Bracket.Players[0].Name + " has won.", "Tournament ended",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+
+                MInputs.Visibility = Visibility.Collapsed;
             }
             else
             {
-                _tournament.Round.Bracket.CheckMatch();
                 UpdateMatchTexts();
                 UpdateVisualizer();
             }
