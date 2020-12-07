@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Controls;
 
 namespace LTHWindow.Tournament.Brackets
 {
@@ -75,13 +74,8 @@ namespace LTHWindow.Tournament.Brackets
             }
             
             ActualMatchId++;
-            Players = Players.OrderByDescending(i => i.WLDRatio).ThenByDescending(j => j.Score).ToList();
+            Players = Players.OrderByDescending(i => i.Score).ThenByDescending(j => j.Score).ToList();
             if (ActualMatchId == Matches.Count) IsFinished = true;
-        }
-
-        public WrapPanel GetVisualizer()
-        {
-            return new WrapPanel();
         }
 
         private void Win(Player winner, Player looser)

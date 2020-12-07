@@ -26,7 +26,7 @@ namespace LTHWindow.Tournament.Brackets
             throw new System.NotImplementedException();
         }
 
-        public WrapPanel GetVisualizer()
+        public ListView GetVisualizer()
         {
             throw new System.NotImplementedException();
         }

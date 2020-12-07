@@ -21,6 +21,7 @@ namespace LTHWindow.Windows.Main
             Height = SystemParameters.WorkArea.Height;
 
             UpdateMatchTexts();
+            UpdateVisualizer();
         }
 
         private void UpdateMatchTexts()
@@ -44,6 +45,11 @@ namespace LTHWindow.Windows.Main
             P2S.Value = 0;
             P1S.Maximum = _tournament.Round.Bracket.ScoreObjective;
             P2S.Maximum = _tournament.Round.Bracket.ScoreObjective;
+        }
+
+        private void UpdateVisualizer()
+        {
+            Visualizer.ItemsSource = _tournament.Round.Bracket.Players;
         }
 
         private void OnScoreValueChanged(object sender, RoutedEventArgs e)
@@ -100,6 +106,7 @@ namespace LTHWindow.Windows.Main
             {
                 _tournament.Round.Bracket.CheckMatch();
                 UpdateMatchTexts();
+                UpdateVisualizer();
             }
         }
     }

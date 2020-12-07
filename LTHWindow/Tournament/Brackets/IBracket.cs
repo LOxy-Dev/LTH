@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Controls;
 
 namespace LTHWindow.Tournament.Brackets
 {
@@ -20,7 +19,6 @@ namespace LTHWindow.Tournament.Brackets
         public void CheckMatch();
 
         // Generate the visualisation panel
-        public WrapPanel GetVisualizer();
     }
 
     public enum Objectives

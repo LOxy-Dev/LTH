@@ -5,13 +5,13 @@ namespace LTHWindow.Tournament
     public class Player
     {
         public string Name { get; set;  }
-        public int WLDRatio { get; private set; }
+        public int[] Wld { get; private set; }
         public int Score { get; set; }
 
         public Player()
         {
+            Wld = new []{0, 0, 0};
             Name = "Player";
-            WLDRatio = 0;
             Score = 0;
         }
 
@@ -20,13 +20,13 @@ namespace LTHWindow.Tournament
             switch (result)
             {
                 case Result.Draw:
-                    WLDRatio += 1;
+                    Wld[2]++;
                     break;
                 case Result.Win:
-                    WLDRatio += 3;
+                    Wld[0]++;
                     break;
                 case Result.Loss:
-                    WLDRatio -= 3;
+                    Wld[1]++;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(result), result, null);
