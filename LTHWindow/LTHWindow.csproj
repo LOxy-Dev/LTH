@@ -4,6 +4,17 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <UseWPF>true</UseWPF>
+        <IsPackable>false</IsPackable>
+        <Title>LTH</Title>
+        <Authors>LOxyDev</Authors>
+        <Description>The official version of LAN Tournament Helper.
+This is the GUI version of the application.</Description>
+        <RepositoryUrl>https://www.github.com/LOxy-Dev/LTH</RepositoryUrl>
+        <PackageReleaseNotes>Dev release.
+Lot of functionnallities are not implemented.</PackageReleaseNotes>
+        <Company>Freemz Studio</Company>
+        <Product>LTH GUI</Product>
+        <NeutralLanguage>en-US</NeutralLanguage>
     </PropertyGroup>
 
     <ItemGroup>

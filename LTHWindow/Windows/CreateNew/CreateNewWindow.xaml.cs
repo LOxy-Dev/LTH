@@ -8,7 +8,6 @@ using Action = LTHWindow.Windows.Main.Action;
 
 namespace LTHWindow.Windows.CreateNew
 {
-    // TODO Make generation at the end of the process
     public partial class CreateNewWindow : Window
     {
         private GenerationPhases _phase;
