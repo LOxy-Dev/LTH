@@ -39,16 +39,68 @@
         <e p="App.xaml.cs" t="Include" />
         <e p="AssemblyInfo.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="LTH_logo_final_JPEG.ico" t="Include" />
         <e p="LTHWindow.csproj" t="IncludeRecursive" />
-        <e p="MainWindow.xaml" t="Include" />
-        <e p="MainWindow.xaml.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
               <e p="App.g.cs" t="Include" />
               <e p="LTHWindow.AssemblyInfo.cs" t="Include" />
-              <e p="MainWindow.g.cs" t="Include" />
+              <e p="Windows" t="Include">
+                <e p="CreateNew" t="Include">
+                  <e p="CreateNewWindow.g.cs" t="Include" />
+                  <e p="PlayersGenerator.g.cs" t="Include" />
+                  <e p="RoundGenerator.g.cs" t="Include" />
+                  <e p="TournamentGenerator.g.cs" t="Include" />
+                </e>
+                <e p="Home" t="Include">
+                  <e p="HomeWindow.g.cs" t="Include" />
+                </e>
+                <e p="Main" t="Include">
+                  <e p="LoadingDialog.g.cs" t="Include" />
+                  <e p="MainWindow.g.cs" t="Include" />
+                </e>
+              </e>
             </e>
+          </e>
+        </e>
+        <e p="Tournament" t="Include">
+          <e p="Brackets" t="Include">
+            <e p="Direct.cs" t="Include" />
+            <e p="Groups.cs" t="Include" />
+            <e p="IBracket.cs" t="Include" />
+          </e>
+          <e p="Match.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
+          <e p="Result.cs" t="Include" />
+          <e p="Rounds" t="Include">
+            <e p="DirectEliminationRound.cs" t="Include" />
+            <e p="GroupRound.cs" t="Include" />
+            <e p="IRound.cs" t="Include" />
+            <e p="MultiRounds.cs" t="Include" />
+          </e>
+          <e p="Tournament.cs" t="Include" />
+        </e>
+        <e p="Windows" t="Include">
+          <e p="CreateNew" t="Include">
+            <e p="CreateNewWindow.xaml" t="Include" />
+            <e p="CreateNewWindow.xaml.cs" t="Include" />
+            <e p="PlayersGenerator.xaml" t="Include" />
+            <e p="PlayersGenerator.xaml.cs" t="Include" />
+            <e p="RoundGenerator.xaml" t="Include" />
+            <e p="RoundGenerator.xaml.cs" t="Include" />
+            <e p="TournamentGenerator.xaml" t="Include" />
+            <e p="TournamentGenerator.xaml.cs" t="Include" />
+          </e>
+          <e p="Home" t="Include">
+            <e p="HomeWindow.xaml" t="Include" />
+            <e p="HomeWindow.xaml.cs" t="Include" />
+          </e>
+          <e p="Main" t="Include">
+            <e p="LoadingDialog.xaml" t="Include" />
+            <e p="LoadingDialog.xaml.cs" t="Include" />
+            <e p="MainWindow.xaml" t="Include" />
+            <e p="MainWindow.xaml.cs" t="Include" />
           </e>
         </e>
       </e>
