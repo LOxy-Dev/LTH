@@ -49,7 +49,7 @@ namespace LTHWindow.Windows.Main
 
         private void UpdateVisualizer()
         {
-            Visualizer.ItemsSource = _tournament.Round.Bracket.Players;
+            ViewerList.ItemsSource = _tournament.Round.Bracket.Players;
         }
 
         private void OnScoreValueChanged(object sender, RoutedEventArgs e)
