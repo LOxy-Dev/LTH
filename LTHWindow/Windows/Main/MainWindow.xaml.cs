@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
+using LTHWindow.Tournament;
 using LTHWindow.Tournament.Brackets;
 
 namespace LTHWindow.Windows.Main
@@ -21,7 +25,7 @@ namespace LTHWindow.Windows.Main
             Height = SystemParameters.WorkArea.Height;
 
             UpdateMatchTexts();
-            UpdateVisualizer();
+            UpdateViewers();
         }
 
         private void UpdateMatchTexts()
@@ -47,9 +51,16 @@ namespace LTHWindow.Windows.Main
             P2S.Maximum = _tournament.Round.Bracket.ScoreObjective;
         }
 
-        private void UpdateVisualizer()
+        private void UpdateViewers()
         {
+            // Updating the list view mode
             ViewerList.ItemsSource = _tournament.Round.Bracket.Players;
+            
+            // Updating the calendar
+            MatchList.ItemsSource = new List<Match>(); // Don't know why but it doesn't without this line
+            MatchList.ItemsSource = _tournament.Round.Bracket.Matches;
+            
+            MatchList.SelectedItem = _tournament.Round.Bracket.GetActualMatch();
         }
 
         private void OnScoreValueChanged(object sender, RoutedEventArgs e)
@@ -111,8 +122,9 @@ namespace LTHWindow.Windows.Main
             else
             {
                 UpdateMatchTexts();
-                UpdateVisualizer();
             }
+            
+            UpdateViewers();
         }
     }
 }

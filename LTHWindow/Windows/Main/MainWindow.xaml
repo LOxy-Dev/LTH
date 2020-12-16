@@ -65,7 +65,25 @@
                 
                 <!-- View mode : Calendar -->
                 <TabItem Header="Calendar">
-                    
+                    <ListBox Name="MatchList">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                <!-- Match name --> 
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding Player1.Name}" />
+                                        <TextBlock Text=" VS " />
+                                        <TextBlock Text="{Binding Player2.Name}" />
+                                    </WrapPanel>
+                                    
+                                    <Separator Visibility="Hidden" Width="100"/>
+                                    
+                                    <!-- Match Completion -->
+                                    <TextBlock Text="{Binding Completion}" />
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </TabItem>
                 
             </TabControl>

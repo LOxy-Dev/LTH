@@ -41,7 +41,23 @@ namespace LTHWindow.Tournament.Brackets
             }
         }
 
-        public Match GetActualMatch() => Matches[ActualMatchId];
+        public Match GetActualMatch()
+        {
+            // Update matches completion
+            foreach (var m in Matches)
+            {
+                if (Matches.IndexOf(m) == ActualMatchId)
+                    m.Completion = "Playing";
+                else if (Matches.IndexOf(m) == ActualMatchId + 1)
+                    m.Completion = "Next Match";
+                else if (Matches.IndexOf(m) < ActualMatchId)
+                    m.Completion = "Finished";
+                else if (Matches.IndexOf(m) > ActualMatchId)
+                    m.Completion = "Non Played";
+            }
+            
+            return Matches[ActualMatchId];
+        }
 
         public void CheckMatch()
         {
@@ -76,6 +92,7 @@ namespace LTHWindow.Tournament.Brackets
             
             ActualMatchId++;
             Players = Players.OrderByDescending(i => i.Score).ThenByDescending(j => j.Score).ToList();
+
             if (ActualMatchId == Matches.Count) IsFinished = true;
         }
 
