@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using LTHWindow.Tournament;
 using LTHWindow.Tournament.Brackets;
 
@@ -23,6 +24,8 @@ namespace LTHWindow.Windows.Main
             Left = 0;
             Width = SystemParameters.WorkArea.Width;
             Height = SystemParameters.WorkArea.Height;
+            
+            InitScoreBoard();
 
             UpdateMatchTexts();
             UpdateViewers();
@@ -125,6 +128,38 @@ namespace LTHWindow.Windows.Main
             }
             
             UpdateViewers();
+        }
+
+        private void InitScoreBoard()
+        {
+            // Adding headers
+            var headerColumn = new ColumnDefinition {MinWidth = 50};
+            var headerRow = new RowDefinition {MinHeight = 50};
+
+            ScoreBoard.ColumnDefinitions.Add(headerColumn);
+            ScoreBoard.RowDefinitions.Add(headerRow);
+
+            var i = 1;
+            foreach (var player in _tournament.Round.Bracket.Players)
+            {
+                // Adding definitions
+                headerColumn = new ColumnDefinition {MinWidth = 50};
+                headerRow = new RowDefinition {MinHeight = 50};
+
+                ScoreBoard.ColumnDefinitions.Add(headerColumn);
+                ScoreBoard.RowDefinitions.Add(headerRow);
+                
+                // Adding labels
+                var tRow = new Label{Content = player.Name};
+                var tColumn = new Label{Content = player.Name};
+
+                ScoreBoard.Children.Add(tRow);
+                ScoreBoard.Children.Add(tColumn);
+                tRow.SetValue(Grid.RowProperty, i);
+                tColumn.SetValue(Grid.ColumnProperty, i);
+
+                i++;
+            }
         }
     }
 }

@@ -41,7 +41,7 @@
             </WrapPanel>
             
             <!-- View modes -->
-            <TabControl Name="ViewModes" DockPanel.Dock="Right" Margin="20">
+            <TabControl DockPanel.Dock="Right" Margin="20">
             
                 <!-- View mode : List -->
                 <TabItem Header="List">
@@ -60,7 +60,7 @@
                 
                 <!-- View mode : ScoreBoard -->
                 <TabItem Header="Score Board">
-                    
+                    <Grid Name="ScoreBoard" ShowGridLines="True"/>
                 </TabItem>
                 
                 <!-- View mode : Calendar -->
