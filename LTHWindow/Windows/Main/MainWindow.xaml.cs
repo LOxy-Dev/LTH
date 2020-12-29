@@ -138,6 +138,13 @@ namespace LTHWindow.Windows.Main
 
             ScoreBoard.ColumnDefinitions.Add(headerColumn);
             ScoreBoard.RowDefinitions.Add(headerRow);
+            
+            // Adding placeholder
+            var placeholder = new Button {IsEnabled = false};
+
+            ScoreBoard.Children.Add(placeholder);
+            placeholder.SetValue(Grid.RowProperty, 0);
+            placeholder.SetValue(Grid.ColumnProperty, 0);
 
             var i = 1;
             foreach (var player in _tournament.Round.Bracket.Players)
@@ -150,15 +157,42 @@ namespace LTHWindow.Windows.Main
                 ScoreBoard.RowDefinitions.Add(headerRow);
                 
                 // Adding labels
-                var tRow = new Label{Content = player.Name};
-                var tColumn = new Label{Content = player.Name};
+                var tRow = new Label
+                {
+                    Content = player.Name,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+                var tColumn = new Label
+                {
+                    Content = player.Name,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
 
                 ScoreBoard.Children.Add(tRow);
                 ScoreBoard.Children.Add(tColumn);
                 tRow.SetValue(Grid.RowProperty, i);
                 tColumn.SetValue(Grid.ColumnProperty, i);
 
-                i++;
+               // Adding placeholders
+               placeholder = new Button {IsEnabled = false};
+               // vs same player
+               ScoreBoard.Children.Add(placeholder);
+               placeholder.SetValue(Grid.RowProperty, i);
+               placeholder.SetValue(Grid.ColumnProperty, i);
+
+               // No two feet matches
+               for (var j = 1; j < i; j++)
+               {
+                   placeholder = new Button {IsEnabled = false};
+
+                   ScoreBoard.Children.Add(placeholder);
+                   placeholder.SetValue(Grid.RowProperty, i);
+                   placeholder.SetValue(Grid.ColumnProperty, j);
+               }
+
+               i++;
             }
         }
     }
