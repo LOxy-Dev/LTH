@@ -40,18 +40,62 @@
                 <Button Name="RegisterButton" IsEnabled="False" Click="RegisterButton_OnClick">Register</Button>
             </WrapPanel>
             
-            <!-- Bracket Visualizer -->
-            <ListView Name="Visualizer" DockPanel.Dock="Right" Margin="20" IsEnabled="False">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Player" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Wins" DisplayMemberBinding="{Binding Wld[0]}" />
-                        <GridViewColumn Header="Looses" DisplayMemberBinding="{Binding Wld[1]}" />
-                        <GridViewColumn Header="Draws" DisplayMemberBinding="{Binding Wld[2]}" />
-                        <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Score}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <!-- View modes -->
+            <TabControl DockPanel.Dock="Right" Margin="20">
+            
+                <!-- View mode : List -->
+                <TabItem Header="List">
+                    <ListView Name="ViewerList" IsEnabled="False">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Player" DisplayMemberBinding="{Binding Name}" />
+                                <GridViewColumn Header="Wins" DisplayMemberBinding="{Binding Wld[0]}" />
+                                <GridViewColumn Header="Looses" DisplayMemberBinding="{Binding Wld[1]}" />
+                                <GridViewColumn Header="Draws" DisplayMemberBinding="{Binding Wld[2]}" />
+                                <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Score}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+                
+                <!-- View mode : ScoreBoard -->
+                <TabItem Header="Score Board">
+                    <Grid Name="ScoreBoard" ShowGridLines="True"/>
+                </TabItem>
+                
+                <!-- View mode : Calendar -->
+                <TabItem Header="Calendar">
+                    <ListBox Name="MatchList">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <!-- Match name --> 
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding Player1.Name}" />
+                                        <TextBlock Text=" VS " />
+                                        <TextBlock Text="{Binding Player2.Name}" />
+                                    </WrapPanel>
+                                    
+                                    <Separator Visibility="Hidden" Width="100"/>
+                                    
+                                    <!-- Match Completion -->
+                                    <TextBlock Text="{Binding Completion}" />
+                                    
+                                    <Separator Visibility="Hidden" Width="50"/>
+                                    
+                                    <!-- Match Score -->
+                                    <WrapPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Scores[0]}" />
+                                        <TextBlock Text=" - " />
+                                        <TextBlock Text="{Binding Scores[1]}" />
+                                    </WrapPanel>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
+                
+            </TabControl>
         </DockPanel>
         
         <Label Content="{StaticResource AppVersion}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
