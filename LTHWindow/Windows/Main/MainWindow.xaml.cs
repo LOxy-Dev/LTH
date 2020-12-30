@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using LTHWindow.Tournament;
 using LTHWindow.Tournament.Brackets;
 
@@ -73,6 +72,22 @@ namespace LTHWindow.Windows.Main
                     ((Label) element).Content = match.Scores[0] + " - " + match.Scores[1];
                     ((Label) element).FontWeight = FontWeights.Bold;
                 }
+            }
+
+            var i = 1;
+            foreach (var player in _tournament.Round.Bracket.Players)
+            {
+                var pos = _tournament.Round.Bracket.Players.IndexOf(player) + 1;
+
+                foreach (var child in ScoreBoard.Children)
+                {
+                    if ((child as Label)?.Name != "p" + i)
+                        continue;
+
+                    ((Label) child).Content = pos;
+                }
+                
+                i++;
             }
             
             // Updating the calendar
@@ -163,6 +178,7 @@ namespace LTHWindow.Windows.Main
             placeholder.SetValue(Grid.ColumnProperty, 0);
 
             int i = 1, m = 1;
+            Label tColumn;
             foreach (var player in _tournament.Round.Bracket.Players)
             {
                 // Adding definitions
@@ -179,7 +195,7 @@ namespace LTHWindow.Windows.Main
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center
                 };
-                var tColumn = new Label
+                tColumn = new Label
                 {
                     Content = player.Name,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -226,6 +242,39 @@ namespace LTHWindow.Windows.Main
 
                i++;
             }
+            
+            // Adding position column
+            headerColumn = new ColumnDefinition {MinWidth = 50};
+            ScoreBoard.ColumnDefinitions.Add(headerColumn);
+               
+            tColumn = new Label
+            {
+                Content = "Position",
+                FontWeight = FontWeights.SemiBold,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            i = 1;
+            foreach (var player in _tournament.Round.Bracket.Players)
+            {
+                var label = new Label
+                {
+                    Name = "p" + i,
+                    Content = "1",
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                ScoreBoard.Children.Add(label);
+                label.SetValue(Grid.RowProperty, i);
+                label.SetValue(Grid.ColumnProperty, ScoreBoard.ColumnDefinitions.Count);
+
+                i++;
+            }
+
+            ScoreBoard.Children.Add(tColumn);
+            tColumn.SetValue(Grid.ColumnProperty, ScoreBoard.ColumnDefinitions.Count);
         }
     }
 }
