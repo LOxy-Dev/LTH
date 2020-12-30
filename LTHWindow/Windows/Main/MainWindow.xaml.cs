@@ -25,7 +25,7 @@ namespace LTHWindow.Windows.Main
             Width = SystemParameters.WorkArea.Width;
             Height = SystemParameters.WorkArea.Height;
             
-            InitScoreBoard();
+            InitScoreBoardView();
 
             UpdateMatchTexts();
             UpdateViewers();
@@ -59,8 +59,11 @@ namespace LTHWindow.Windows.Main
             // Updating the list view mode
             ViewerList.ItemsSource = _tournament.Round.Bracket.Players;
             
+            // Updating the scoreboard view
+            
+            
             // Updating the calendar
-            MatchList.ItemsSource = new List<Match>(); // Don't know why but it doesn't without this line
+            MatchList.ItemsSource = new List<Match>();
             MatchList.ItemsSource = _tournament.Round.Bracket.Matches;
             
             MatchList.SelectedItem = _tournament.Round.Bracket.GetActualMatch();
@@ -130,7 +133,7 @@ namespace LTHWindow.Windows.Main
             UpdateViewers();
         }
 
-        private void InitScoreBoard()
+        private void InitScoreBoardView()
         {
             // Adding headers
             var headerColumn = new ColumnDefinition {MinWidth = 50};
@@ -146,7 +149,7 @@ namespace LTHWindow.Windows.Main
             placeholder.SetValue(Grid.RowProperty, 0);
             placeholder.SetValue(Grid.ColumnProperty, 0);
 
-            var i = 1;
+            int i = 1, m = 1;
             foreach (var player in _tournament.Round.Bracket.Players)
             {
                 // Adding definitions
@@ -177,14 +180,30 @@ namespace LTHWindow.Windows.Main
 
                // Adding placeholders
                placeholder = new Button {IsEnabled = false};
-               // vs same player
+
                ScoreBoard.Children.Add(placeholder);
                placeholder.SetValue(Grid.RowProperty, i);
                placeholder.SetValue(Grid.ColumnProperty, i);
-
-               // No two feet matches
+               
+               // Filling boxes
                for (var j = 1; j < i; j++)
                {
+                   // Adding match cases
+                   var match = new Label
+                   {
+                       Name = "m" + m,
+                       Content = "Match n°" + m,
+                       HorizontalAlignment = HorizontalAlignment.Center,
+                       VerticalAlignment = VerticalAlignment.Center
+                   };
+
+                   ScoreBoard.Children.Add(match);
+                   match.SetValue(Grid.RowProperty, j);
+                   match.SetValue(Grid.ColumnProperty, i);
+
+                   m++;
+
+                   // Adding placeholder if not two-legged
                    placeholder = new Button {IsEnabled = false};
 
                    ScoreBoard.Children.Add(placeholder);
