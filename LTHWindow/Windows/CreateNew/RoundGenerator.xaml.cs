@@ -13,9 +13,32 @@ namespace LTHWindow.Windows.CreateNew
         {
             var panel = App.Tournament.Round.GetGenerator();
             
-            var t = new WrapPanel();
-            t.Children.Add(new Label {Content = "Test"});
             Grid.Children.Add(panel);
+        }
+
+        public bool IsFill()
+        {
+            foreach (var child in Grid.Children)
+            {
+                if (child.GetType() != typeof(WrapPanel))
+                    continue;
+
+                foreach (var item in ((WrapPanel) child).Children)
+                {
+                    if ((item as WrapPanel)?.Name != "ObjectiveSelector")
+                        continue;
+                    
+                    foreach (var element in ((WrapPanel) item).Children)
+                    {
+                        if (element.GetType() != typeof(ComboBox))
+                            continue;
+
+                        return ((ComboBox) element).SelectedItem != null;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

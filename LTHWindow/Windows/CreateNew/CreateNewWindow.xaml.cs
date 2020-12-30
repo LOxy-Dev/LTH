@@ -52,9 +52,6 @@ namespace LTHWindow.Windows.CreateNew
                     _roundGenerator.Init();
                     ContentHolder.Content = _roundGenerator;
                     _phase = GenerationPhases.Round;
-                    
-                    // Specific case : NextButton enabled by default
-                    NextButton.IsEnabled = true;
                     break;
                 case GenerationPhases.Round:
                     App.Tournament.Round.Init();
@@ -68,8 +65,6 @@ namespace LTHWindow.Windows.CreateNew
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            NextButton.IsEnabled = false;
         }
 
         private void UIElement_OnLayoutUpdated(object sender, EventArgs e)
@@ -78,7 +73,7 @@ namespace LTHWindow.Windows.CreateNew
             {
                 GenerationPhases.Tournament => _trnGenerator.IsFill,
                 GenerationPhases.Players => _plyrGenerator.IsFill(),
-                GenerationPhases.Round => true,
+                GenerationPhases.Round => _roundGenerator.IsFill(),
                 _ => false
             };
         }
