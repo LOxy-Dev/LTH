@@ -69,7 +69,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel>
-                                <!-- Match name --> 
+                                    <!-- Match name --> 
                                     <WrapPanel>
                                         <TextBlock Text="{Binding Player1.Name}" />
                                         <TextBlock Text=" VS " />
@@ -80,6 +80,15 @@
                                     
                                     <!-- Match Completion -->
                                     <TextBlock Text="{Binding Completion}" />
+                                    
+                                    <Separator Visibility="Hidden" Width="50"/>
+                                    
+                                    <!-- Match Score -->
+                                    <WrapPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Scores[0]}" />
+                                        <TextBlock Text=" - " />
+                                        <TextBlock Text="{Binding Scores[1]}" />
+                                    </WrapPanel>
                                 </WrapPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

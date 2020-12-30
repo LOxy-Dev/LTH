@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Media;
+using System.Windows.Documents;
 using LTHWindow.Tournament;
 using LTHWindow.Tournament.Brackets;
 
@@ -60,7 +59,21 @@ namespace LTHWindow.Windows.Main
             ViewerList.ItemsSource = _tournament.Round.Bracket.Players;
             
             // Updating the scoreboard view
-            
+            foreach (var match in _tournament.Round.Bracket.Matches)
+            {
+                if (match.Completion != "Finished")
+                    continue;
+
+                foreach (var element in ScoreBoard.Children)
+                {
+                    var m = "m" + (_tournament.Round.Bracket.Matches.IndexOf(match) + 1);
+
+                    if ((element as Label)?.Name != m) continue;
+                    
+                    ((Label) element).Content = match.Scores[0] + " - " + match.Scores[1];
+                    ((Label) element).FontWeight = FontWeights.Bold;
+                }
+            }
             
             // Updating the calendar
             MatchList.ItemsSource = new List<Match>();
