@@ -14,9 +14,9 @@ namespace LTHWindow.Tournament.Rounds
         public List<Player> Players { get; set; }
 
         public IBracket Bracket { get; set; }
-        
+
         // Fields
-        private readonly WrapPanel _generator = new WrapPanel
+        private WrapPanel _generator = new WrapPanel
         {
             Name = "Generator",
             Orientation = Orientation.Vertical
@@ -32,14 +32,15 @@ namespace LTHWindow.Tournament.Rounds
             {
                 if (generatorChild.GetType() != typeof(WrapPanel))
                     continue;
-                
+
                 switch ((generatorChild as WrapPanel).Name)
                 {
                     // If selector box
                     // If objective selector
                     case "SelectorBox":
                     {
-                        foreach (var selectorItem in (generatorChild as WrapPanel).Children) // Each player selector (checkBox + label)
+                        foreach (var selectorItem in (generatorChild as WrapPanel).Children
+                        ) // Each player selector (checkBox + label)
                         {
                             if (selectorItem.GetType() != typeof(WrapPanel)) continue;
                             var playerSelector = (WrapPanel) selectorItem;
@@ -66,7 +67,7 @@ namespace LTHWindow.Tournament.Rounds
                             if (child.GetType() == typeof(ComboBox))
                             {
                                 var comboBox = (ComboBox) child;
-                                    
+                                
                                 // get all element in resource
                                 var t = (Array) Application.Current.FindResource("ScoreObjective");
                                 var fo = t?.GetValue(0)?.ToString();
@@ -97,6 +98,13 @@ namespace LTHWindow.Tournament.Rounds
 
         public WrapPanel GetGenerator()
         {
+            // Reset panel
+            _generator = new WrapPanel
+            {
+                Name = "Generator",
+                Orientation = Orientation.Vertical
+            };
+            
             // Player selector
             var playerSelector = new WrapPanel
             {
@@ -125,21 +133,21 @@ namespace LTHWindow.Tournament.Rounds
             }
 
             _generator.Children.Add(playerSelector);
-            
+
             // Objective selector
             var objectiveSelector = new WrapPanel
             {
                 Name = "ObjectiveSelector",
                 Orientation = Orientation.Horizontal
             };
-            
+
             var typeSelector = new ComboBox
             {
                 Name = "TypeSelector",
                 ItemsSource = (Array) Application.Current.FindResource("ScoreObjective")
             };
             objectiveSelector.Children.Add(typeSelector);
-            
+
             var scoreSelector = new IntegerUpDown
             {
                 Name = "ScoreSelector",

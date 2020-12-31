@@ -13,6 +13,8 @@ namespace LTHWindow.Windows.CreateNew
         {
             var panel = App.Tournament.Round.GetGenerator();
             
+            // Reset the grid
+            Grid.Children.Clear();
             Grid.Children.Add(panel);
         }
 
