@@ -11,7 +11,11 @@
         <WrapPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
             <ContentPresenter Name="ContentHolder" />
             <Separator Height="20" Opacity="0"/>
-            <Button Name="NextButton" Click="NextButton_OnClick" Width="NaN" IsEnabled="False" HorizontalAlignment="Right">Next</Button>
+            <!-- Interactions buttons -->
+            <DockPanel>
+                <Button Name="BackButton" Click="BackButton_OnClick" MaxWidth="35" Visibility="Collapsed" DockPanel.Dock="Left">Back</Button>
+                <Button Name="NextButton" Click="NextButton_OnClick" MaxWidth="35" IsEnabled="False" DockPanel.Dock="Right">Next</Button>
+            </DockPanel>
         </WrapPanel>
     </Grid>
 </Window>

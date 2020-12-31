@@ -34,7 +34,8 @@ namespace LTHWindow.Windows.CreateNew
         public void GeneratePlayers()
         {
             // Return if a field is empty
-            if (!IsFill()) return;
+            if (!IsFill())
+                return;
             
             // Reset the list
             App.Tournament.Players.Clear();

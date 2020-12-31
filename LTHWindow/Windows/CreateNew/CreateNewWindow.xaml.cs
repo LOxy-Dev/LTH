@@ -39,9 +39,10 @@ namespace LTHWindow.Windows.CreateNew
                     // Generate and show player generator interface
                     _plyrGenerator.Init();
                     ContentHolder.Content = _plyrGenerator;
-                    _phase = GenerationPhases.Players;
+                    _phase++;
                     
-                    // Specific case : NextButton enabled by default
+                    // Activating BackButton
+                    BackButton.Visibility = Visibility.Visible;
                     NextButton.IsEnabled = true;
                     break;
                 case GenerationPhases.Players:
@@ -51,10 +52,7 @@ namespace LTHWindow.Windows.CreateNew
                     // Generate and show round generator interface
                     _roundGenerator.Init();
                     ContentHolder.Content = _roundGenerator;
-                    _phase = GenerationPhases.Round;
-                    
-                    // Specific case : NextButton enabled by default
-                    NextButton.IsEnabled = true;
+                    _phase++;
                     break;
                 case GenerationPhases.Round:
                     App.Tournament.Round.Init();
@@ -68,8 +66,6 @@ namespace LTHWindow.Windows.CreateNew
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            NextButton.IsEnabled = false;
         }
 
         private void UIElement_OnLayoutUpdated(object sender, EventArgs e)
@@ -78,7 +74,7 @@ namespace LTHWindow.Windows.CreateNew
             {
                 GenerationPhases.Tournament => _trnGenerator.IsFill,
                 GenerationPhases.Players => _plyrGenerator.IsFill(),
-                GenerationPhases.Round => true,
+                GenerationPhases.Round => _roundGenerator.IsFill(),
                 _ => false
             };
         }
@@ -105,10 +101,30 @@ namespace LTHWindow.Windows.CreateNew
             // Close create new window
             Close();
         }
+
+        private void BackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            switch (_phase)
+            {
+                case GenerationPhases.Tournament:
+                    break;
+                case GenerationPhases.Players:
+                    BackButton.Visibility = Visibility.Collapsed;
+                    _phase--;
+                    ContentHolder.Content = _trnGenerator;
+                    break;
+                case GenerationPhases.Round:
+                    _phase--;
+                    ContentHolder.Content = _plyrGenerator;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 
     public enum GenerationPhases
     {
-        Tournament, Players, Round
+        Tournament = 1, Players = 2, Round = 3
     }
 }
