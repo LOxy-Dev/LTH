@@ -13,8 +13,11 @@
         <!-- Tournament Types -->
         <x:Array x:Key="TournamentTypes" Type="system:String">
             <system:String>Championship format</system:String>
+            <!-- Hiding unused content for development version 1.0 -->
+            <!--
             <system:String>Direct elimination</system:String>
             <system:String>Multi rounds</system:String>
+            -->
         </x:Array>
         
         <!-- Score Objective -->
