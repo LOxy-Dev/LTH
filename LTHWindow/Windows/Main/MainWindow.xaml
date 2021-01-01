@@ -1,0 +1,103 @@
+﻿<Window x:Class="LTHWindow.Windows.Main.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:LTHWindow.Windows.Main"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="{StaticResource AppName}" Icon="../../LTH_logo_final_JPEG.ico">
+    <Grid>
+        <DockPanel>
+            <!-- Match inputs-->
+            <WrapPanel Name="MInputs" Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20">
+                <!-- Match infos -->
+                <TextBlock Name="MInfos" TextAlignment="Center" FontWeight="SemiBold"/>
+                
+                <!-- Match players score -->
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <!-- Player 1 -->
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock Name="P1">Player 1</TextBlock>
+                        <xctk:IntegerUpDown Name="P1S" Text="0" Minimum="0" ValueChanged="OnScoreValueChanged"/>
+                    </WrapPanel>
+                    
+                    <Separator Width=" 20" Opacity="0" />
+                    
+                    <!-- Player 2 -->
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock Name="P2">Player 2</TextBlock>
+                        <xctk:IntegerUpDown Name="P2S" Text="0" Minimum="0" ValueChanged="OnScoreValueChanged"/>
+                    </WrapPanel>
+                </WrapPanel>
+                
+                <!-- Error message -->
+                <TextBlock Name="ErrorText" Visibility="Hidden" FontStyle="Italic" Foreground="DarkRed">
+                    ERROR : The score is not valid
+                </TextBlock>
+                
+                <!-- Register Button -->
+                <Button Name="RegisterButton" IsEnabled="False" Click="RegisterButton_OnClick">Register</Button>
+            </WrapPanel>
+            
+            <!-- View modes -->
+            <TabControl DockPanel.Dock="Right" Margin="20">
+            
+                <!-- View mode : List -->
+                <TabItem Header="List">
+                    <ListView Name="ViewerList" IsEnabled="False">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Player" DisplayMemberBinding="{Binding Name}" />
+                                <GridViewColumn Header="Wins" DisplayMemberBinding="{Binding Wld[0]}" />
+                                <GridViewColumn Header="Looses" DisplayMemberBinding="{Binding Wld[1]}" />
+                                <GridViewColumn Header="Draws" DisplayMemberBinding="{Binding Wld[2]}" />
+                                <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Score}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+                
+                <!-- View mode : ScoreBoard -->
+                <TabItem Header="Score Board">
+                    <Grid Name="ScoreBoard" />
+                </TabItem>
+                
+                <!-- View mode : Calendar -->
+                <TabItem Header="Calendar">
+                    <ListBox Name="MatchList">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <!-- Match name --> 
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding Player1.Name}" />
+                                        <TextBlock Text=" VS " />
+                                        <TextBlock Text="{Binding Player2.Name}" />
+                                    </WrapPanel>
+                                    
+                                    <Separator Visibility="Hidden" Width="100"/>
+                                    
+                                    <!-- Match Completion -->
+                                    <TextBlock Text="{Binding Completion}" />
+                                    
+                                    <Separator Visibility="Hidden" Width="50"/>
+                                    
+                                    <!-- Match Score -->
+                                    <WrapPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Scores[0]}" />
+                                        <TextBlock Text=" - " />
+                                        <TextBlock Text="{Binding Scores[1]}" />
+                                    </WrapPanel>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
+                
+            </TabControl>
+        </DockPanel>
+        
+        <Label Content="{StaticResource AppVersion}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>

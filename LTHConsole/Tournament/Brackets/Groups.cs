@@ -12,11 +12,12 @@ namespace LTHConsole.Tournament.Brackets
     {
         public Groups(List<Player> players) : base(players)
         {
-            Init();
+            
         }
 
-        private void Init()
+        public override void Init()
         {
+            // Generate matches
             for (int i = 0; i < Players.Count; i++)
             {
                 for (int j = 0; j < i; j++)
@@ -25,46 +26,42 @@ namespace LTHConsole.Tournament.Brackets
                     Matches.Add(match);
                 }
             }
+            // Randomize order
+            var rnd = new Random();
+            Matches = Matches.OrderBy(x => rnd.Next()).ToList();
         }
 
         public override void CheckMatch()
         {
-            if (Score[0] == ScoreObjective && Score[1] == ScoreObjective)
+            var match = GetActualMatch();
+            if (match.Score[0] == match.Score[1])
             {
                 Draw();
             }
-            else if (Score[0] == ScoreObjective)
+            else if (match.Score[0] > match.Score[1])
             {
-                Win(GetActualMatch().Player1, GetActualMatch().Player2);
-            }
-            else if (Score[1] == ScoreObjective)
-            {
-                Win(GetActualMatch().Player2, GetActualMatch().Player1);
+                Win(match.Player1, match.Player2);
             }
             else
             {
-                Draw();
+                Win(match.Player2, match.Player1);
             }
-            ActualMatchId++;
+            // Ordering players by score
             Players = Players.OrderByDescending(i => i.WLDRatio).ThenByDescending(j => j.Score).ToList();
-            if (ActualMatchId == Matches.Count) IsFinished = true;
+            base.CheckMatch();
         }
 
         private void Win(Player winner, Player looser)
         {
+            var match = GetActualMatch();
+
+            var pts = Math.Abs(match.Score[0] - match.Score[1]);
+            
             winner.AddResult(Results.Win);
             looser.AddResult(Results.Loss);
-            
-            if (Score[0] - Score[1] > 0)
-            {
-                winner.Score += Score[0] - Score[1];
-                looser.Score -= Score[0] - Score[1];
-            }
-            else
-            {
-                winner.Score -= Score[0] - Score[1];
-                looser.Score += Score[0] - Score[1];
-            }
+
+            winner.Score += pts;
+            looser.Score -= pts;
 
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("\n{0} has won!\n", winner.Name);
@@ -80,7 +77,7 @@ namespace LTHConsole.Tournament.Brackets
             p1.AddResult(Results.Draw);
             p2.AddResult(Results.Draw);
             
-            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("\nDraw!\n");
             Console.ResetColor();
         }
@@ -91,7 +88,7 @@ namespace LTHConsole.Tournament.Brackets
             var firstLine = "|  Position  |  WLD  |  Score  |";
             var builder = new StringBuilder();
             builder.Append("|  ");
-            for (int i = 0; i < longestName; i++)
+            for (var i = 0; i < longestName; i++)
             {
                 builder.Append("x");
             }
