@@ -60,7 +60,7 @@
                 
                 <!-- View mode : ScoreBoard -->
                 <TabItem Header="Score Board">
-                    <Grid Name="ScoreBoard" ShowGridLines="True"/>
+                    <Grid Name="ScoreBoard" />
                 </TabItem>
                 
                 <!-- View mode : Calendar -->

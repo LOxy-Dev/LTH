@@ -101,6 +101,10 @@
             <e p="LoadingDialog.xaml.cs" t="Include" />
             <e p="MainWindow.xaml" t="Include" />
             <e p="MainWindow.xaml.cs" t="Include" />
+            <e p="Utils" t="Include">
+              <e p="CrossedPlaceholder.xaml" t="Include" />
+              <e p="CrossedPlaceholder.xaml.cs" t="Include" />
+            </e>
           </e>
         </e>
       </e>
