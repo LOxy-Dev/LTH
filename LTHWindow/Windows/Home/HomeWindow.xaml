@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LTHWindow"
         mc:Ignorable="d"
-        Title="{StaticResource AppTag}" Height="450" Width="800">
+        Title="{StaticResource AppTag}" Height="450" Width="800" Icon="../../LTH_logo_final_JPEG.ico">
     
     <Grid>
         <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="{StaticResource AppVersion}" />

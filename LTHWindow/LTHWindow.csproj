@@ -21,4 +21,8 @@ Lot of functionnallities are not implemented.</PackageReleaseNotes>
       <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Resource Include="LTH_logo_final_JPEG.ico" />
+    </ItemGroup>
+
 </Project>

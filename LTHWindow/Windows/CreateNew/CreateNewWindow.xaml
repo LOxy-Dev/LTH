@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:LTHWindow"
         mc:Ignorable="d"
-        Title="New Tournament" Height="300" Width="500"  ResizeMode="NoResize">
+        Title="New Tournament" Height="300" Width="500"  ResizeMode="NoResize" Icon="../../LTH_logo_final_JPEG.ico">
     
     <Grid LayoutUpdated="UIElement_OnLayoutUpdated">
         <WrapPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
