@@ -15,5 +15,7 @@ Global
 		{B2B56B93-8C12-49C9-A60A-5A1E4E25F52F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CAD85258-818B-4E89-B992-8BE623B82DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CAD85258-818B-4E89-B992-8BE623B82DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD85258-818B-4E89-B992-8BE623B82DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD85258-818B-4E89-B992-8BE623B82DB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

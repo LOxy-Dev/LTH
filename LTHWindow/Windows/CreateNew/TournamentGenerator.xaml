@@ -19,14 +19,17 @@
             
             <Separator Height="10" Opacity="0" />
             
-            <!-- File path --> <!--
+            <!-- Hiding unused content vor development version 1.0 -->
+            <!-- File path --> 
+            <!--
             <WrapPanel Orientation="Horizontal">
                 <Label FontWeight="SemiBold">File place</Label>
                 <Separator Width="5" Opacity="0" />
                 <TextBox Name="FileBox" />
             </WrapPanel>
             
-            <Separator Height="10" Opacity="0" /> -->
+            <Separator Height="10" Opacity="0" />
+            -->
             
             <!-- Number of players -->
             <WrapPanel Orientation="Horizontal">

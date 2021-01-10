@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using LTHWindow.Tournament;
 using LTHWindow.Tournament.Brackets;
+using LTHWindow.Windows.Main.Utils;
 
 namespace LTHWindow.Windows.Main
 {
@@ -171,7 +174,7 @@ namespace LTHWindow.Windows.Main
             ScoreBoard.RowDefinitions.Add(headerRow);
             
             // Adding placeholder
-            var placeholder = new Button {IsEnabled = false};
+            var placeholder = new CrossedPlaceholder();
 
             ScoreBoard.Children.Add(placeholder);
             placeholder.SetValue(Grid.RowProperty, 0);
@@ -179,6 +182,7 @@ namespace LTHWindow.Windows.Main
 
             int i = 1, m = 1;
             Label tColumn;
+            Rectangle lines;
             foreach (var player in _tournament.Round.Bracket.Players)
             {
                 // Adding definitions
@@ -206,41 +210,67 @@ namespace LTHWindow.Windows.Main
                 ScoreBoard.Children.Add(tColumn);
                 tRow.SetValue(Grid.RowProperty, i);
                 tColumn.SetValue(Grid.ColumnProperty, i);
+                
+                // Adding lines
+                lines = new Rectangle
+                {
+                    Stroke = new SolidColorBrush(Colors.Gray),
+                    Fill = Brushes.Transparent
+                };
+                ScoreBoard.Children.Add(lines);
+                lines.SetValue(Grid.RowProperty, i);
+                
+                lines = new Rectangle
+                {
+                    Stroke = new SolidColorBrush(Colors.Gray),
+                    Fill = Brushes.Transparent
+                };
+                ScoreBoard.Children.Add(lines);
+                lines.SetValue(Grid.ColumnProperty, i);
 
-               // Adding placeholders
-               placeholder = new Button {IsEnabled = false};
-
-               ScoreBoard.Children.Add(placeholder);
-               placeholder.SetValue(Grid.RowProperty, i);
-               placeholder.SetValue(Grid.ColumnProperty, i);
+                // Adding placeholders
+                placeholder = new CrossedPlaceholder();
                
-               // Filling boxes
-               for (var j = 1; j < i; j++)
-               {
-                   // Adding match cases
-                   var match = new Label
-                   {
-                       Name = "m" + m,
-                       Content = "Match n°" + m,
-                       HorizontalAlignment = HorizontalAlignment.Center,
-                       VerticalAlignment = VerticalAlignment.Center
-                   };
+                ScoreBoard.Children.Add(placeholder);
+                placeholder.SetValue(Grid.RowProperty, i);
+                placeholder.SetValue(Grid.ColumnProperty, i);
+                
+                // Filling boxes
+                for (var j = 1; j < i; j++)
+                {
+                    // Adding match cases
+                    var match = new Label
+                    {
+                        Name = "m" + m,
+                        Content = "Match n°" + m,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    
+                    lines = new Rectangle
+                    {
+                        Stroke = new SolidColorBrush(Colors.Gray),
+                        Fill = Brushes.Transparent
+                    };
 
-                   ScoreBoard.Children.Add(match);
-                   match.SetValue(Grid.RowProperty, j);
-                   match.SetValue(Grid.ColumnProperty, i);
+                    ScoreBoard.Children.Add(match);
+                    match.SetValue(Grid.RowProperty, j);
+                    match.SetValue(Grid.ColumnProperty, i);
+                    ScoreBoard.Children.Add(lines);
+                    lines.SetValue(Grid.RowProperty, j);
+                    lines.SetValue(Grid.ColumnProperty, i);
 
-                   m++;
+                    m++;
 
-                   // Adding placeholder if not two-legged
-                   placeholder = new Button {IsEnabled = false};
+                    // Adding placeholder if not two-legged
+                    placeholder = new CrossedPlaceholder();
 
-                   ScoreBoard.Children.Add(placeholder);
-                   placeholder.SetValue(Grid.RowProperty, i);
-                   placeholder.SetValue(Grid.ColumnProperty, j);
-               }
+                    ScoreBoard.Children.Add(placeholder);
+                    placeholder.SetValue(Grid.RowProperty, i);
+                    placeholder.SetValue(Grid.ColumnProperty, j);
+                }
 
-               i++;
+                i++;
             }
             
             // Adding position column
@@ -255,6 +285,18 @@ namespace LTHWindow.Windows.Main
                 VerticalAlignment = VerticalAlignment.Center
             };
 
+            lines = new Rectangle
+            {
+                Stroke = new SolidColorBrush(Colors.Gray),
+                Fill = Brushes.Transparent
+            };
+
+            ScoreBoard.Children.Add(tColumn);
+            tColumn.SetValue(Grid.ColumnProperty, ScoreBoard.ColumnDefinitions.Count);
+
+            ScoreBoard.Children.Add(lines);
+            lines.SetValue(Grid.ColumnProperty, ScoreBoard.ColumnDefinitions.Count);
+            
             i = 1;
             foreach (var player in _tournament.Round.Bracket.Players)
             {
@@ -270,11 +312,18 @@ namespace LTHWindow.Windows.Main
                 label.SetValue(Grid.RowProperty, i);
                 label.SetValue(Grid.ColumnProperty, ScoreBoard.ColumnDefinitions.Count);
 
+                lines = new Rectangle
+                {
+                    Stroke = new SolidColorBrush(Colors.Gray),
+                    Fill = Brushes.Transparent
+                };
+
+                ScoreBoard.Children.Add(lines);
+                lines.SetValue(Grid.RowProperty, i);
+                lines.SetValue(Grid.ColumnProperty, ScoreBoard.ColumnDefinitions.Count);
+
                 i++;
             }
-
-            ScoreBoard.Children.Add(tColumn);
-            tColumn.SetValue(Grid.ColumnProperty, ScoreBoard.ColumnDefinitions.Count);
         }
     }
 }
