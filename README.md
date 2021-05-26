@@ -1,2 +1,2 @@
-#LAN Tournament Helper
+# LAN Tournament Helper
 *Manage your LAN easier*
